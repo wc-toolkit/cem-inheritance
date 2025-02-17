@@ -60,16 +60,16 @@ export function typeParserPlugin(op: Options) {
   log = new Logger(options.debug);
 
   if (options.skip) {
-    log.yellow("[type-parser] - Skipped");
+    log.yellow("[cem-inheritance] - Skipped");
     return;
   }
-  log.log("[type-parser] - Updating Custom Elements Manifest...");
+  log.log("[cem-inheritance] - Updating Custom Elements Manifest...");
 
   return {
-    name: "type-parser-plugin",
+    name: "cem-inheritance-plugin",
     analyzePhase,
     packageLinkPhase: () => {
-      log.green("[type-parser] - Custom Elements Manifest updated.");
+      log.green("[cem-inheritance] - Custom Elements Manifest updated.");
     },
   };
 }

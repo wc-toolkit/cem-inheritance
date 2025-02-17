@@ -1,4 +1,4 @@
-# @wc-toolkit/type-parser
+# @wc-toolkit/cem-inheritance
 
 ## 1.0.0
 

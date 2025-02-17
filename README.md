@@ -1,6 +1,6 @@
 <div align="center">
   
-![workbench with tools, html, css, javascript, and typescript logos](https://raw.githubusercontent.com/wc-toolkit/type-parser/refs/heads/main/assets/wc-toolkit_ts.png)
+![workbench with tools, html, css, javascript, and typescript logos](https://raw.githubusercontent.com/wc-toolkit/cem-inheritance/refs/heads/main/assets/wc-toolkit_ts.png)
 
 </div>
 
@@ -14,7 +14,7 @@ This plugin parses the types so they available in a more usable format.
 ## Installation
 
 ```bash
-npm i -D @wc-toolkit/type-parser
+npm i -D @wc-toolkit/cem-inheritance
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ This plugin parses the types for your component APIs in Custom Elements Manifest
 ```js
 // custom-elements-manifest.config.js
 
-import { getTsProgram, typeParserPlugin } from "@wc-toolkit/type-parser";
+import { getTsProgram, typeParserPlugin } from "@wc-toolkit/cem-inheritance";
 
 export default {
   ...
@@ -76,4 +76,4 @@ It doesn't overwrite the existing property, but will create a new property with 
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/stackblitz-starters-cngwm94d?file=README.md)
 
-Be sure to check out the [official docs](https://wc-toolkit.com/documentation/type-parser) for more information on how to use this.
+Be sure to check out the [official docs](https://wc-toolkit.com/documentation/cem-inheritance) for more information on how to use this.

@@ -4,7 +4,7 @@ import { getComponentByClassName, getComponentPublicProperties } from "@wc-toolk
 import { Property } from "@wc-toolkit/cem-utilities";
 
 
-describe('type-parser', () => {
+describe('cem-inheritance', () => {
   type Prop = Property<Record<string, unknown> & { parsedType?: { text: string } }>;
   const component = getComponentByClassName(cem, 'MyComponent');
   const properties = getComponentPublicProperties<Prop>(component!);
