@@ -135,15 +135,13 @@ function getOmittedProperties(
 ) {
   const configOmits = userConfig.omitByComponent?.[component.name]?.[api] || [];
   const jsDocOmitProp = userConfig.omitByProperty?.[api];
-  console.log("jsDocOmitProp", jsDocOmitProp);
   const omitsFromJsDoc = jsDocOmitProp
     ? (component[jsDocOmitProp] as Array<{ name: string }>)?.map(
         (x) => x.name
       ) || []
     : [];
-  console.log("omitsFromJsDoc", omitsFromJsDoc);
 
-  return omitsFromJsDoc.length ? omitsFromJsDoc : configOmits;
+  return [...configOmits, ...omitsFromJsDoc];
 }
 
 function updateApi(
@@ -172,9 +170,6 @@ function updateApi(
     }
   });
 
-  // if(component.name === 'MyJsDocOmitComponent') {
-  //   console.log('API', api, component.name, component[api], omit);
-  // }
   component[api] = (component[api] as any[])?.filter(
     (a) => !omit.includes(a.name)
   );
