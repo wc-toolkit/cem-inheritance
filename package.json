@@ -74,5 +74,8 @@
   "publishConfig": {
     "provenance": true,
     "access": "public"
+  },
+  "dependencies": {
+    "@wc-toolkit/jsdoc-tags": "^1.1.0"
   }
 }
