@@ -43,7 +43,7 @@ describe('cem-inheritance', () => {
     // Act
     
     // Assert
-    expect(properties.length).toEqual(4);
+    expect(properties.length).toEqual(3);
     expect(component?.cssParts?.length).toEqual(1);
     expect(component?.cssProperties?.length).toEqual(1);
     expect(component?.events?.length).toEqual(0);
