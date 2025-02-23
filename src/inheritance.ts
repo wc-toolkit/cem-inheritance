@@ -148,21 +148,21 @@ function getOmittedProperties(
   api: keyof OmittedProperties
 ): string[] {
   const configOmits = userConfig.omitByConfig?.[component.name]?.[api] || [];
-  const componentOmitProp = userConfig.omitByProperty?.[api];
+  const componentOmitProp = userConfig.omitByProperty?.[api] || "";
 
   // Safely cast to array of { name: string }
 
   const allOmits = [
     ...configOmits.map((name) => ({ name })),
-    ...((component[componentOmitProp!] as Array<{ name: string }>) || []),
-    ...((parent[componentOmitProp!] as Array<{ name: string }>) || []),
+    ...((component[componentOmitProp] as Array<{ name: string }>) || []),
+    ...((parent[componentOmitProp] as Array<{ name: string }>) || []),
   ];
 
   const uniqueOmits = [...new Set(allOmits.map((omit) => omit.name))];
 
   // do not add the omit property to the component if there are no omits
   if (uniqueOmits.length) {
-    component[componentOmitProp!] = uniqueOmits.map((name) => ({ name }));
+    component[componentOmitProp] = uniqueOmits.map((name) => ({ name }));
   }
   return uniqueOmits;
 }
