@@ -96,7 +96,9 @@ function getAncestors(
     component.superclass?.name &&
     !completedClasses.has(component.superclass.name)
   ) {
-    const parent = cemMap?.get(component.superclass.name) || externalMap?.get(component.superclass.name);
+    const parent =
+      cemMap?.get(component.superclass.name) ||
+      externalMap?.get(component.superclass.name);
     getAncestors(parent, cemMap, externalMap);
   }
 }
@@ -112,7 +114,9 @@ function processInheritanceQueue(
   classQueue.reverse();
 
   classQueue.forEach((component) => {
-    const parent = cemMap?.get(component.superclass?.name || '') || externalMap?.get(component.superclass?.name || '');
+    const parent =
+      cemMap?.get(component.superclass?.name || "") ||
+      externalMap?.get(component.superclass?.name || "");
     if (parent) {
       Object.keys(defaultUserConfig.omitByProperty!).forEach((key) => {
         const componentApi = key as keyof OmittedProperties;
@@ -135,19 +139,17 @@ function getOmittedProperties(
   const configOmits = userConfig.omitByConfig?.[component.name]?.[api] || [];
   const componentOmitProp = userConfig.omitByProperty?.[api];
   let componentOmits: string[] = [];
-
-  component[componentOmitProp!] = [
+  const omits = [
     ...new Set([
-      ...configOmits,
+      ...configOmits.map((o) => { return { name: o }; }),
       ...((component[componentOmitProp!] as Array<{ name: string }>) || []),
       ...((parent[componentOmitProp!] as Array<{ name: string }>) || []),
     ]),
   ];
 
-  if (component[componentOmitProp!]) {
-    componentOmits = (
-      component[componentOmitProp!] as Array<{ name: string }>
-    ).map((o) => o.name);
+  if(omits.length) {
+    component[componentOmitProp!] = omits;
+    componentOmits = omits.map((o) => o.name);
   }
 
   return [...configOmits, ...componentOmits];
@@ -207,7 +209,7 @@ function updateClassMembers(
     }
   });
 
-  component.members = component.members?.filter((a) => !omit.includes(a.name));
+  component.members = component.members?.filter((a) => !omit.includes(a.name) && a.inheritedFrom);
 }
 
 function addInheritedFromInfo(member: any, component: Component) {

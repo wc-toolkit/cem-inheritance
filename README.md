@@ -51,7 +51,7 @@ The plugin can be added to the [Custom Elements Manifest Analyzer configuration 
 ```js
 // custom-elements-manifest.config.js
 
-import { cemInheritancePlugin } from "custom-elements-manifest-inheritance";
+import { cemInheritancePlugin } from "@wc-toolkit/cem-inheritance";
 
 const options = {...};
 
