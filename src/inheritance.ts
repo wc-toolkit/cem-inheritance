@@ -51,7 +51,15 @@ function setExternalManifests(manifests?: unknown[]) {
   );
 }
 
-export function generateUpdatedCem(cem: unknown, options: Options = {}) {
+function createComponentMap(components: Component[]): Map<string, Component> {
+  const map = new Map<string, Component>();
+  components.forEach((component) => {
+    map.set(component.name, component);
+  });
+  return map;
+}
+
+function generateUpdatedCem(cem: unknown, options: Options = {}) {
   log = new Logger(options.debug);
 
   if (!cem) {
@@ -63,15 +71,22 @@ export function generateUpdatedCem(cem: unknown, options: Options = {}) {
   updatedCEM = cem;
   userConfig = updateOptions(options);
   cemEntities = getDeclarations(cem, userConfig.exclude);
+  const cemMap = createComponentMap(cemEntities);
+  const externalMap = createComponentMap(externalComponents);
+
   cemEntities.forEach((component) => {
-    getAncestors(component);
-    processInheritanceQueue();
+    getAncestors(component, cemMap, externalMap);
+    processInheritanceQueue(cemMap, externalMap);
   });
 
   return updatedCEM;
 }
 
-function getAncestors(component?: Component) {
+function getAncestors(
+  component?: Component,
+  cemMap?: Map<string, Component>,
+  externalMap?: Map<string, Component>
+) {
   if (!component || completedClasses.includes(component.name)) {
     return;
   }
@@ -81,14 +96,15 @@ function getAncestors(component?: Component) {
     component.superclass?.name &&
     !completedClasses.includes(component.superclass.name)
   ) {
-    const parent =
-      cemEntities.find((c) => c.name === component.superclass?.name) ||
-      externalComponents.find((c) => c.name === component.superclass?.name);
-    getAncestors(parent);
+    const parent = cemMap?.get(component.superclass.name) || externalMap?.get(component.superclass.name);
+    getAncestors(parent, cemMap, externalMap);
   }
 }
 
-function processInheritanceQueue() {
+function processInheritanceQueue(
+  cemMap?: Map<string, Component>,
+  externalMap?: Map<string, Component>
+) {
   if (classQueue.length === 0) {
     return;
   }
@@ -96,9 +112,7 @@ function processInheritanceQueue() {
   classQueue.reverse();
 
   classQueue.forEach((component) => {
-    const parent =
-      cemEntities.find((c) => c.name === component.superclass?.name) ||
-      externalComponents.find((c) => c.name === component.superclass?.name);
+    const parent = cemMap?.get(component.superclass?.name || '') || externalMap?.get(component.superclass?.name || '');
     if (parent) {
       Object.keys(defaultUserConfig.omitByProperty!).forEach((key) => {
         const componentApi = key as keyof OmittedProperties;
