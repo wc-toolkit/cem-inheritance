@@ -347,26 +347,22 @@
           "customElement": true,
           "omit": [
             {
-              "name": "age",
-              "description": ""
+              "name": "age"
             }
           ],
           "omitCssParts": [
             {
-              "name": "content",
-              "description": ""
+              "name": "content"
             }
           ],
           "omitCssProps": [
             {
-              "name": "--my-component-background-color",
-              "description": ""
+              "name": "--my-component-background-color"
             }
           ],
           "omitEvents": [
             {
-              "name": "my-event",
-              "description": ""
+              "name": "my-event"
             }
           ],
           "slots": [
@@ -545,31 +541,23 @@
           ],
           "omitCssProps": [
             {
-              "name": "--my-component-background-color",
-              "description": ""
+              "name": "--my-component-background-color"
             }
           ],
           "omitCssParts": [
             {
-              "name": "content",
-              "description": ""
+              "name": "content"
             }
           ],
           "omit": [
             {
-              "name": "age",
-              "description": ""
-            },
-            {
-              "name": "age",
-              "description": ""
+              "name": "age"
             }
           ],
           "attributes": [],
           "omitEvents": [
             {
-              "name": "my-event",
-              "description": ""
+              "name": "my-event"
             }
           ]
         }

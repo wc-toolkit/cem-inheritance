@@ -112,9 +112,8 @@ function processInheritanceQueue(
   }
 
   try {
-    classQueue.reverse();
-
-    classQueue.forEach((component) => {
+    for (let i = classQueue.length - 1; i >= 0; i--) {
+      const component = classQueue[i];
       const parent =
         cemMap?.get(component.superclass?.name || "") ||
         externalMap?.get(component.superclass?.name || "");
@@ -127,9 +126,12 @@ function processInheritanceQueue(
       }
 
       completedClasses.add(component.name);
-    });
+    }
   } catch (error) {
-    console.error("[cem-inheritance] - Error processing inheritance queue.", error);
+    console.error(
+      "[cem-inheritance] - Error processing inheritance queue.",
+      error
+    );
   }
 
   classQueue = [];
@@ -142,19 +144,24 @@ function getOmittedProperties(
 ) {
   const configOmits = userConfig.omitByConfig?.[component.name]?.[api] || [];
   const componentOmitProp = userConfig.omitByProperty?.[api];
-  const omits = [
-    ...configOmits.map((o) => {
-      return { name: o };
-    }),
-    ...((component[componentOmitProp!] as Array<{ name: string }>) || []),
-    ...((parent[componentOmitProp!] as Array<{ name: string }>) || []),
-  ];
 
-  if (omits.length) {
-    component[componentOmitProp!] = omits;
+  // Use a Set to efficiently collect unique omitted properties
+  const omits = new Set<string>([
+    ...configOmits,
+    ...(
+      ((component[componentOmitProp!] as any) || []) as { name: string }[]
+    ).map((o) => o.name),
+    ...(((parent[componentOmitProp!] as any) || []) as { name: string }[]).map(
+      (o) => o.name
+    ),
+  ]);
+  
+  if (omits.size) {
+    const omitsArray = Array.from(omits).map((name) => ({ name }));
+    component[componentOmitProp!] = omitsArray;
   }
 
-  return omits.map((o) => o.name);
+  return Array.from(omits);
 }
 
 function updateApi(
