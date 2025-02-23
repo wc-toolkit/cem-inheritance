@@ -146,29 +146,28 @@ function getOmittedProperties(
   component: Component,
   parent: Component,
   api: keyof OmittedProperties
-) {
+): string[] {
   const configOmits = userConfig.omitByConfig?.[component.name]?.[api] || [];
   const componentOmitProp = userConfig.omitByProperty?.[api];
 
-  // Use a Set to efficiently collect unique omitted properties
-  const omits = new Set<string>([
+  // Safely cast to array of { name: string }
+  const getNameArray = (obj: unknown): { name: string }[] =>
+    Array.isArray(obj) ? (obj as { name: string }[]) : [];
+
+  const allOmits: string[] = [
     ...configOmits,
-    ...(
-      ((component[componentOmitProp!] as any) || []) as { name: string }[]
-    ).map((o) => o.name),
-    ...(((parent[componentOmitProp!] as any) || []) as { name: string }[]).map(
-      (o) => o.name
-    ),
-  ]);
-  
-  if (omits.size) {
-    const omitsArray = Array.from(omits).map((name) => ({ name }));
-    component[componentOmitProp!] = omitsArray;
+    ...getNameArray(component[componentOmitProp!]).map((o) => o.name),
+    ...getNameArray(parent[componentOmitProp!]).map((o) => o.name),
+  ];
+
+  const uniqueOmits = [...new Set(allOmits)];
+
+  // do not add the omit property to the component if there are no omits
+  if (uniqueOmits.length) {
+    component[componentOmitProp!] = uniqueOmits.map((name) => ({ name }));
   }
-
-  return Array.from(omits);
+  return uniqueOmits;
 }
-
 function updateApi(
   component: Component,
   parent: Component,
