@@ -9,7 +9,7 @@ import {
 import { createOutDir, saveFile } from "./utilities";
 import { defaultUserConfig } from "./default-values";
 
-const completedClasses: string[] = [];
+const completedClasses: Set<string> = new Set();
 let classQueue: Component[] = [];
 let cemEntities: Component[] = [];
 let externalComponents: Component[] = [];
@@ -21,6 +21,7 @@ export function updateCemInheritance(cem: unknown, options: Options = {}) {
   log = new Logger(options.debug);
   if (options.skip) {
     log.yellow("[cem-inheritance] - Skipped");
+    return;
   }
 
   log.log("[cem-inheritance] - Updating Custom Elements Manifest...");
@@ -60,8 +61,6 @@ function createComponentMap(components: Component[]): Map<string, Component> {
 }
 
 function generateUpdatedCem(cem: unknown, options: Options = {}) {
-  log = new Logger(options.debug);
-
   if (!cem) {
     throw new Error(
       "Custom Elements Manifest is required to update inheritance."
@@ -76,8 +75,9 @@ function generateUpdatedCem(cem: unknown, options: Options = {}) {
 
   cemEntities.forEach((component) => {
     getAncestors(component, cemMap, externalMap);
-    processInheritanceQueue(cemMap, externalMap);
   });
+
+  processInheritanceQueue(cemMap, externalMap);
 
   return updatedCEM;
 }
@@ -87,14 +87,14 @@ function getAncestors(
   cemMap?: Map<string, Component>,
   externalMap?: Map<string, Component>
 ) {
-  if (!component || completedClasses.includes(component.name)) {
+  if (!component || completedClasses.has(component.name)) {
     return;
   }
 
   classQueue.push(component);
   if (
     component.superclass?.name &&
-    !completedClasses.includes(component.superclass.name)
+    !completedClasses.has(component.superclass.name)
   ) {
     const parent = cemMap?.get(component.superclass.name) || externalMap?.get(component.superclass.name);
     getAncestors(parent, cemMap, externalMap);
@@ -121,7 +121,7 @@ function processInheritanceQueue(
       });
     }
 
-    completedClasses.push(component.name);
+    completedClasses.add(component.name);
   });
 
   classQueue = [];
