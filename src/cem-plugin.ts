@@ -39,6 +39,7 @@ const defaultTags: CustomTag = {
 
 export function cemInheritancePlugin(options: Options = {}) {
   userOptions = deepMerge(defaultUserConfig, options);
+  userOptions.usedByPlugin = true;
   return {
     name: "cem-inheritance",
     analyzePhase(params: AnalyzePhaseParams) {

@@ -230,14 +230,7 @@
               }
             }
           ],
-          "omitCssProps": [],
-          "omitCssParts": [],
-          "omitCssStates": [],
-          "omitMethods": [],
-          "omit": [],
-          "attributes": [],
-          "omitEvents": [],
-          "omitSlots": []
+          "attributes": []
         },
         {
           "kind": "class",
@@ -345,21 +338,26 @@
             }
           ],
           "omitCssProps": [
-            "--my-component-color"
+            {
+              "name": "--my-component-color"
+            }
           ],
           "omitCssParts": [
-            "title"
+            {
+              "name": "title"
+            }
           ],
           "omitCssStates": [
-            "active"
+            {
+              "name": "active"
+            }
           ],
-          "omitMethods": [],
-          "omit": [],
           "attributes": [],
           "omitEvents": [
-            "my-event"
-          ],
-          "omitSlots": []
+            {
+              "name": "my-event"
+            }
+          ]
         },
         {
           "kind": "class",
@@ -369,7 +367,7 @@
             "name": "MyComponent",
             "module": "demo/src/my-components.ts"
           },
-          "tagName": "my-config-omit-component",
+          "tagName": "my-jsdoc-omit-component",
           "customElement": true,
           "omit": [
             {
@@ -487,10 +485,7 @@
               }
             }
           ],
-          "omitCssStates": [],
-          "omitMethods": [],
-          "attributes": [],
-          "omitSlots": []
+          "attributes": []
         },
         {
           "kind": "class",
@@ -500,7 +495,7 @@
             "name": "MyJsDocOmitComponent",
             "module": "demo/src/my-components.ts"
           },
-          "tagName": "my-ext-config-omit-component",
+          "tagName": "my-ext-jsdoc-omit-component",
           "customElement": true,
           "slots": [
             {
@@ -606,8 +601,6 @@
               "description": ""
             }
           ],
-          "omitCssStates": [],
-          "omitMethods": [],
           "omit": [
             {
               "name": "age",
@@ -620,8 +613,7 @@
               "name": "my-event",
               "description": ""
             }
-          ],
-          "omitSlots": []
+          ]
         }
       ],
       "exports": [

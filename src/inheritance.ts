@@ -68,7 +68,7 @@ function generateUpdatedCem(cem: unknown, options: Options = {}) {
   }
 
   updatedCEM = cem;
-  userConfig = updateOptions(options);
+  userConfig = options.usedByPlugin ? options : updateOptions(options);
   cemEntities = getDeclarations(cem, userConfig.exclude);
   const cemMap = createComponentMap(cemEntities);
   const externalMap = createComponentMap(externalComponents);
@@ -138,21 +138,19 @@ function getOmittedProperties(
 ) {
   const configOmits = userConfig.omitByConfig?.[component.name]?.[api] || [];
   const componentOmitProp = userConfig.omitByProperty?.[api];
-  let componentOmits: string[] = [];
   const omits = [
-    ...new Set([
-      ...configOmits.map((o) => { return { name: o }; }),
-      ...((component[componentOmitProp!] as Array<{ name: string }>) || []),
-      ...((parent[componentOmitProp!] as Array<{ name: string }>) || []),
-    ]),
+    ...configOmits.map((o) => {
+      return { name: o };
+    }),
+    ...((component[componentOmitProp!] as Array<{ name: string }>) || []),
+    ...((parent[componentOmitProp!] as Array<{ name: string }>) || []),
   ];
 
-  if(omits.length) {
+  if (omits.length) {
     component[componentOmitProp!] = omits;
-    componentOmits = omits.map((o) => o.name);
   }
 
-  return [...configOmits, ...componentOmits];
+  return omits.map((o) => o.name);
 }
 
 function updateApi(
@@ -209,7 +207,9 @@ function updateClassMembers(
     }
   });
 
-  component.members = component.members?.filter((a) => !omit.includes(a.name) && a.inheritedFrom);
+  component.members = component.members?.filter(
+    (a) => !omit.includes(a.name) && a.inheritedFrom
+  );
 }
 
 function addInheritedFromInfo(member: any, component: Component) {
