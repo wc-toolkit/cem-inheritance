@@ -156,8 +156,7 @@
                 "text": "string"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -167,8 +166,7 @@
                 "text": "number"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -178,8 +176,7 @@
                 "text": "boolean"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -189,16 +186,7 @@
                 "text": "\"sports\" | \"music\" | \"art\""
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "render",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             }
           ],
@@ -280,8 +268,7 @@
                 "text": "string"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -291,8 +278,7 @@
                 "text": "number"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -302,8 +288,7 @@
                 "text": "boolean"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -313,16 +298,7 @@
                 "text": "\"sports\" | \"music\" | \"art\""
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "render",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             }
           ],
@@ -431,8 +407,7 @@
                 "text": "string"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -442,8 +417,7 @@
                 "text": "boolean"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -453,16 +427,7 @@
                 "text": "\"sports\" | \"music\" | \"art\""
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "render",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             }
           ],
@@ -535,8 +500,7 @@
                 "text": "string"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -546,8 +510,7 @@
                 "text": "boolean"
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             },
             {
@@ -557,16 +520,7 @@
                 "text": "\"sports\" | \"music\" | \"art\""
               },
               "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "render",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
+                "name": "MyComponent"
               }
             }
           ],
@@ -602,6 +556,10 @@
             }
           ],
           "omit": [
+            {
+              "name": "age",
+              "description": ""
+            },
             {
               "name": "age",
               "description": ""

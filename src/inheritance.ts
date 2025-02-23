@@ -180,8 +180,17 @@ function updateApi(
   });
 
   component[api] = (component[api] as any[])?.filter(
-    (a) => !omit.includes(a.name)
+    (a) => !omit.includes(a.name) && a.inheritedFrom
   );
+
+  if (api === "attributes" && component.members?.length) {
+    component.members = component.members.filter(
+      (a) =>
+        a.name ===
+          parent.attributes?.find((x) => omit.includes(x.name))?.fieldName &&
+        a.inheritedFrom
+    );
+  }
 }
 
 function updateClassMembers(
@@ -210,6 +219,12 @@ function updateClassMembers(
   component.members = component.members?.filter(
     (a) => !omit.includes(a.name) && a.inheritedFrom
   );
+
+  if (api !== "methods" && component.attributes?.length) {
+    component.attributes = component.attributes.filter(
+      (a) => !omit.includes(a.fieldName || "") && a.inheritedFrom
+    );
+  }
 }
 
 function addInheritedFromInfo(member: any, component: Component) {

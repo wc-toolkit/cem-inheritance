@@ -6,7 +6,7 @@
 
 # WC Toolkit CEM Inheritance
 
-This tool maps inherited content (including class members, attributes, CSS parts, CSS variables, slots, and events) from parent components in the Custom Elements Manifest (CEM). 
+This tool maps inherited content (including class members, attributes, CSS parts, CSS variables, slots, and events) from parent components in the Custom Elements Manifest (CEM).
 This helps in maintaining a clear and comprehensive documentation of web components and their inheritance hierarchy and reduces the need for duplicate documentation for component with shared APIs.
 
 ## Features
@@ -64,4 +64,13 @@ export default {
 };
 ```
 
-Check out the [documentation]() to see how to configure this to meet your project's needs.
+<div style="text-align: center; margin-top: 32px;">
+  <a href="https://stackblitz.com/edit/stackblitz-starters-57ju3afb?file=README.md" target="_blank">
+    <img
+      alt="Open in StackBlitz"
+      src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
+    />
+  </a>
+</div>
+
+Check out the [documentation](https://wc-toolkit.com/documentation/cem-inheritance) to see how to configure this to meet your project's needs.
