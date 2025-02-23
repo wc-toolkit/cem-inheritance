@@ -111,22 +111,26 @@ function processInheritanceQueue(
     return;
   }
 
-  classQueue.reverse();
+  try {
+    classQueue.reverse();
 
-  classQueue.forEach((component) => {
-    const parent =
-      cemMap?.get(component.superclass?.name || "") ||
-      externalMap?.get(component.superclass?.name || "");
-    if (parent) {
-      Object.keys(defaultUserConfig.omitByProperty!).forEach((key) => {
-        const componentApi = key as keyof OmittedProperties;
-        const omit = getOmittedProperties(component, parent, componentApi);
-        updateApi(component, parent, componentApi, omit);
-      });
-    }
+    classQueue.forEach((component) => {
+      const parent =
+        cemMap?.get(component.superclass?.name || "") ||
+        externalMap?.get(component.superclass?.name || "");
+      if (parent) {
+        Object.keys(defaultUserConfig.omitByProperty!).forEach((key) => {
+          const componentApi = key as keyof OmittedProperties;
+          const omit = getOmittedProperties(component, parent, componentApi);
+          updateApi(component, parent, componentApi, omit);
+        });
+      }
 
-    completedClasses.add(component.name);
-  });
+      completedClasses.add(component.name);
+    });
+  } catch (error) {
+    console.error("[cem-inheritance] - Error processing inheritance queue.", error);
+  }
 
   classQueue = [];
 }
