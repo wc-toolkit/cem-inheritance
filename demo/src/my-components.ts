@@ -72,3 +72,11 @@ export class MyConfigOmitComponent extends MyComponent {}
  * 
  */
 export class MyJsDocOmitComponent extends MyComponent {}
+
+/**
+ * Component where items are omitted from the JSDoc tags
+ *
+ * @tag my-ext-config-omit-component
+ * 
+ */
+export class MyExtJsDocOmitComponent extends MyJsDocOmitComponent {}

@@ -7,31 +7,15 @@ import {
   type Component,
 } from "@wc-toolkit/cem-utilities";
 import { createOutDir, saveFile } from "./utilities";
+import { defaultUserConfig } from "./default-values";
 
 const completedClasses: string[] = [];
 let classQueue: Component[] = [];
 let cemEntities: Component[] = [];
 let externalComponents: Component[] = [];
 let updatedCEM: unknown = {};
-const defaultOmittedProperties: OmittedProperties = {
-  cssProperties: "omitCssProps",
-  cssParts: "omitCssParts",
-  cssStates: "omitCssStates",
-  methods: "omitMethods",
-  attributes: "omit",
-  properties: "omit",
-  events: "omitEvents",
-  slots: "omitSlots",
-};
-let userConfig: Options = {
-  fileName: "custom-elements.json",
-  outdir: "./",
-  exclude: [],
-  externalManifests: [],
-  omitByComponent: {},
-  omitByProperty: defaultOmittedProperties,
-};
 let log: Logger;
+let userConfig: Options = defaultUserConfig;
 
 export function updateCemInheritance(cem: unknown, options: Options = {}) {
   log = new Logger(options.debug);
@@ -116,9 +100,9 @@ function processInheritanceQueue() {
       cemEntities.find((c) => c.name === component.superclass?.name) ||
       externalComponents.find((c) => c.name === component.superclass?.name);
     if (parent) {
-      Object.keys(defaultOmittedProperties).forEach((key) => {
+      Object.keys(defaultUserConfig.omitByProperty!).forEach((key) => {
         const componentApi = key as keyof OmittedProperties;
-        const omit = getOmittedProperties(component, componentApi);
+        const omit = getOmittedProperties(component, parent, componentApi);
         updateApi(component, parent, componentApi, omit);
       });
     }
@@ -131,17 +115,28 @@ function processInheritanceQueue() {
 
 function getOmittedProperties(
   component: Component,
+  parent: Component,
   api: keyof OmittedProperties
 ) {
-  const configOmits = userConfig.omitByComponent?.[component.name]?.[api] || [];
-  const jsDocOmitProp = userConfig.omitByProperty?.[api];
-  const omitsFromJsDoc = jsDocOmitProp
-    ? (component[jsDocOmitProp] as Array<{ name: string }>)?.map(
-        (x) => x.name
-      ) || []
-    : [];
+  const configOmits = userConfig.omitByConfig?.[component.name]?.[api] || [];
+  const componentOmitProp = userConfig.omitByProperty?.[api];
+  let componentOmits: string[] = [];
 
-  return [...configOmits, ...omitsFromJsDoc];
+  component[componentOmitProp!] = [
+    ...new Set([
+      ...configOmits,
+      ...((component[componentOmitProp!] as Array<{ name: string }>) || []),
+      ...((parent[componentOmitProp!] as Array<{ name: string }>) || []),
+    ]),
+  ];
+
+  if (component[componentOmitProp!]) {
+    componentOmits = (
+      component[componentOmitProp!] as Array<{ name: string }>
+    ).map((o) => o.name);
+  }
+
+  return [...configOmits, ...componentOmits];
 }
 
 function updateApi(
@@ -155,7 +150,7 @@ function updateApi(
     return;
   }
 
-  if (!parent[api] || userConfig.ignore?.includes(api)) {
+  if (userConfig.ignore?.includes(api)) {
     return;
   }
 
@@ -185,7 +180,7 @@ function updateClassMembers(
     (m) => m.kind === (api === "methods" ? "method" : "field")
   );
 
-  if (!parentContent?.length || userConfig.ignore?.includes(api)) {
+  if (userConfig.ignore?.includes(api)) {
     return;
   }
 

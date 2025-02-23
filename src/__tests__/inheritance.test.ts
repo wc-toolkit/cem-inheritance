@@ -49,4 +49,19 @@ describe('cem-inheritance', () => {
     expect(component?.events?.length).toEqual(0);
     expect(component?.slots?.length).toEqual(1);
   });
+
+  test('should omit APIs based on parent omissions', () => {
+    // Arrange
+    const component = getComponentByClassName(cem, 'MyExtJsDocOmitComponent');
+    const properties = getComponentPublicProperties(component!);
+      
+    // Act
+    
+    // Assert
+    expect(properties.length).toEqual(3);
+    expect(component?.cssParts?.length).toEqual(1);
+    expect(component?.cssProperties?.length).toEqual(1);
+    expect(component?.events?.length).toEqual(0);
+    expect(component?.slots?.length).toEqual(1);
+  });
 });

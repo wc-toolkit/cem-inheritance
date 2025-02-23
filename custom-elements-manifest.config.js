@@ -13,7 +13,7 @@ export default {
   packagejson: false,
   plugins: [
     cemInheritancePlugin({
-      omitByComponent: {
+      omitByConfig: {
         MyConfigOmitComponent: {
           cssParts: ["title"],
           cssProperties: ["--my-component-color"],

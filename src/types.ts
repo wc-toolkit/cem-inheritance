@@ -5,10 +5,10 @@ export type Options = {
   outdir?: string;
   /** Class names of any components you would like to exclude from inheritance */
   exclude?: string[];
-  /** Aspects of your class that you would like to exclude from it and its children */
+  /** Omit items from inheritance based on a custom CEM property */
   omitByProperty?: OmittedProperties;
-  /** Aspects of your class that you would like to exclude from it and its children */
-  omitByComponent?: ClassOmit;
+  /** Omit items from inheritance based on CEM Analyzer plugin config */
+  omitByConfig?: ConfigOmit;
   /** Skip inheritance for an aspect of your components */
   ignore?: string[];
   /** External CEMs that your components extend */
@@ -21,7 +21,7 @@ export type Options = {
   usedByPlugin?: boolean;
 };
 
-export type ClassOmit = {
+export type ConfigOmit = {
   [key: string]: OmittedApis;
 };
 
