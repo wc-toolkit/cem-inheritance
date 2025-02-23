@@ -112,11 +112,15 @@ function processInheritanceQueue(
   }
 
   try {
-    for (let i = classQueue.length - 1; i >= 0; i--) {
-      const component = classQueue[i];
+    // Process the queue using a while loop for better performance
+    while (classQueue.length > 0) {
+      const component = classQueue.pop(); // Use pop for LIFO processing
+      if (!component) continue; // Skip if component is undefined
+
       const parent =
         cemMap?.get(component.superclass?.name || "") ||
         externalMap?.get(component.superclass?.name || "");
+
       if (parent) {
         Object.keys(defaultUserConfig.omitByProperty!).forEach((key) => {
           const componentApi = key as keyof OmittedProperties;
@@ -132,9 +136,10 @@ function processInheritanceQueue(
       "[cem-inheritance] - Error processing inheritance queue.",
       error
     );
+  } finally {
+    // Ensure classQueue is always empty after processing
+    classQueue = [];
   }
-
-  classQueue = [];
 }
 
 function getOmittedProperties(
