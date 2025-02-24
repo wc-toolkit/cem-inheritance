@@ -4,18 +4,38 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "demo/src/alt-types.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "demo/src/my-component.ts",
+      "path": "demo/src/my-components.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Test component",
+          "description": "Base component",
           "name": "MyComponent",
+          "cssProperties": [
+            {
+              "description": "The color of the component",
+              "name": "--my-component-color"
+            },
+            {
+              "description": "The background color of the component",
+              "name": "--my-component-background-color"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The title of the component",
+              "name": "title"
+            },
+            {
+              "description": "The content of the component",
+              "name": "content"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The title of the component",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -40,92 +60,9 @@
             },
             {
               "kind": "field",
-              "name": "internal",
+              "name": "hobby",
               "type": {
-                "text": "Hobby"
-              },
-              "parsedType": {
-                "text": "'sports' | 'music' | 'art'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "dtsExternal",
-              "type": {
-                "text": "Test"
-              },
-              "parsedType": {
-                "text": "'value1' | 'value2' | 'value3'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "tsExternal",
-              "type": {
-                "text": "Test2"
-              },
-              "parsedType": {
-                "text": "'value4' | 'value5' | 'value6'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "test3",
-              "type": {
-                "text": "Test | Test2"
-              },
-              "parsedType": {
-                "text": "'value1' | 'value2' | 'value3' | 'value4' | 'value5' | 'value6'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "generic",
-              "type": {
-                "text": "MyGeneric"
-              },
-              "parsedType": {
-                "text": "'value1' | 'value2' | 'value3' | 'sports' | 'music' | 'art'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "exclude",
-              "type": {
-                "text": "ExcludeUnionType"
-              },
-              "parsedType": {
-                "text": "'value4' | 'value5' | 'value6' | 'value2' | 'value3'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "namedUnion",
-              "type": {
-                "text": "UnionType"
-              },
-              "parsedType": {
-                "text": "'value4' | 'value5' | 'value6' | 'value1' | 'value2' | 'value3'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "direction",
-              "type": {
-                "text": "DirectionOptions"
-              },
-              "parsedType": {
-                "text": "'Up' | 'Down' | 'Left' | 'Right'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "enumExample",
-              "type": {
-                "text": "DirectionEnum"
-              },
-              "parsedType": {
-                "text": "0 | 1 | 2 | 3"
+                "text": "\"sports\" | \"music\" | \"art\""
               }
             },
             {
@@ -133,11 +70,496 @@
               "name": "render"
             }
           ],
+          "events": [
+            {
+              "description": "My event",
+              "name": "my-event"
+            }
+          ],
+          "cssStates": [
+            {
+              "description": "The active state of the component",
+              "name": "active"
+            },
+            {
+              "description": "The disabled state of the component",
+              "name": "disabled"
+            }
+          ],
           "superclass": {
             "name": "HTMLElement"
           },
           "tagName": "my-component",
           "customElement": true
+        },
+        {
+          "kind": "class",
+          "description": "Basic component that extends another component",
+          "name": "MyExtComponent",
+          "superclass": {
+            "name": "MyComponent",
+            "module": "demo/src/my-components.ts"
+          },
+          "tagName": "my-ext-component",
+          "customElement": true,
+          "slots": [
+            {
+              "description": "The title of the component",
+              "name": "",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The title of the component",
+              "name": "title",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "description": "The content of the component",
+              "name": "content",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssProperties": [
+            {
+              "description": "The color of the component",
+              "name": "--my-component-color",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "description": "The background color of the component",
+              "name": "--my-component-background-color",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "age",
+              "type": {
+                "text": "number"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hobby",
+              "type": {
+                "text": "\"sports\" | \"music\" | \"art\""
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "My event",
+              "name": "my-event",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssStates": [
+            {
+              "description": "The active state of the component",
+              "name": "active",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "description": "The disabled state of the component",
+              "name": "disabled",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "kind": "class",
+          "description": "Component where items are omitted from the CEM config",
+          "name": "MyConfigOmitComponent",
+          "superclass": {
+            "name": "MyComponent",
+            "module": "demo/src/my-components.ts"
+          },
+          "tagName": "my-config-omit-component",
+          "customElement": true,
+          "slots": [
+            {
+              "description": "The title of the component",
+              "name": "",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The content of the component",
+              "name": "content",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssProperties": [
+            {
+              "description": "The background color of the component",
+              "name": "--my-component-background-color",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "age",
+              "type": {
+                "text": "number"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hobby",
+              "type": {
+                "text": "\"sports\" | \"music\" | \"art\""
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            }
+          ],
+          "events": [],
+          "cssStates": [
+            {
+              "description": "The disabled state of the component",
+              "name": "disabled",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "omitCssProps": [
+            {
+              "name": "--my-component-color"
+            }
+          ],
+          "omitCssParts": [
+            {
+              "name": "title"
+            }
+          ],
+          "omitCssStates": [
+            {
+              "name": "active"
+            }
+          ],
+          "attributes": [],
+          "omitEvents": [
+            {
+              "name": "my-event"
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "Component where items are omitted from the JSDoc tags",
+          "name": "MyJsDocOmitComponent",
+          "superclass": {
+            "name": "MyComponent",
+            "module": "demo/src/my-components.ts"
+          },
+          "tagName": "my-jsdoc-omit-component",
+          "customElement": true,
+          "omit": [
+            {
+              "name": "age"
+            }
+          ],
+          "omitCssParts": [
+            {
+              "name": "content"
+            }
+          ],
+          "omitCssProps": [
+            {
+              "name": "--my-component-background-color"
+            }
+          ],
+          "omitEvents": [
+            {
+              "name": "my-event"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The title of the component",
+              "name": "",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The title of the component",
+              "name": "title",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssProperties": [
+            {
+              "description": "The color of the component",
+              "name": "--my-component-color",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hobby",
+              "type": {
+                "text": "\"sports\" | \"music\" | \"art\""
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            }
+          ],
+          "events": [],
+          "cssStates": [
+            {
+              "description": "The active state of the component",
+              "name": "active",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "description": "The disabled state of the component",
+              "name": "disabled",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "attributes": []
+        },
+        {
+          "kind": "class",
+          "description": "Component where items are omitted from the JSDoc tags",
+          "name": "MyExtJsDocOmitComponent",
+          "superclass": {
+            "name": "MyJsDocOmitComponent",
+            "module": "demo/src/my-components.ts"
+          },
+          "tagName": "my-ext-jsdoc-omit-component",
+          "customElement": true,
+          "slots": [
+            {
+              "description": "The title of the component",
+              "name": "",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The title of the component",
+              "name": "title",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssProperties": [
+            {
+              "description": "The color of the component",
+              "name": "--my-component-color",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hobby",
+              "type": {
+                "text": "\"sports\" | \"music\" | \"art\""
+              },
+              "inheritedFrom": {
+                "name": "MyComponent"
+              }
+            }
+          ],
+          "events": [],
+          "cssStates": [
+            {
+              "description": "The active state of the component",
+              "name": "active",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "description": "The disabled state of the component",
+              "name": "disabled",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "omitCssProps": [
+            {
+              "name": "--my-component-background-color"
+            }
+          ],
+          "omitCssParts": [
+            {
+              "name": "content"
+            }
+          ],
+          "omit": [
+            {
+              "name": "age"
+            }
+          ],
+          "attributes": [],
+          "omitEvents": [
+            {
+              "name": "my-event"
+            }
+          ]
         }
       ],
       "exports": [
@@ -146,15 +568,39 @@
           "name": "MyComponent",
           "declaration": {
             "name": "MyComponent",
-            "module": "demo/src/my-component.ts"
+            "module": "demo/src/my-components.ts"
           }
         },
         {
-          "kind": "custom-element-definition",
-          "name": "my-component",
+          "kind": "js",
+          "name": "MyExtComponent",
           "declaration": {
-            "name": "MyComponent",
-            "module": "demo/src/my-component.ts"
+            "name": "MyExtComponent",
+            "module": "demo/src/my-components.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MyConfigOmitComponent",
+          "declaration": {
+            "name": "MyConfigOmitComponent",
+            "module": "demo/src/my-components.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MyJsDocOmitComponent",
+          "declaration": {
+            "name": "MyJsDocOmitComponent",
+            "module": "demo/src/my-components.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MyExtJsDocOmitComponent",
+          "declaration": {
+            "name": "MyExtJsDocOmitComponent",
+            "module": "demo/src/my-components.ts"
           }
         }
       ]

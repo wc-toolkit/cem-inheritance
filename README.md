@@ -1,79 +1,76 @@
 <div align="center">
   
-![workbench with tools, html, css, javascript, and typescript logos](https://raw.githubusercontent.com/wc-toolkit/cem-inheritance/refs/heads/main/assets/wc-toolkit_ts.png)
+![workbench with tools, html, css, javascript, and typescript logos](https://raw.githubusercontent.com/wc-toolkit/cem-inheritance/refs/heads/main/assets/wc-toolkit_cem-inheritance.png)
 
 </div>
 
-# WC Toolkit Type Parser
+# WC Toolkit CEM Inheritance
 
-Using type aliases to define the types for your component’s APIs, can be helpful for keeping your code clean and organized as well as making your types reusable.
+This tool maps inherited content (including class members, attributes, CSS parts, CSS variables, slots, and events) from parent components in the Custom Elements Manifest (CEM).
+This helps in maintaining a clear and comprehensive documentation of web components and their inheritance hierarchy and reduces the need for duplicate documentation for component with shared APIs.
 
-The down-side is that it can be difficult to integrate with other tooling or communicate in documentation what the available options are. 
-This plugin parses the types so they available in a more usable format.
+## Features
+
+- Automatically updates the Custom Elements Manifest with inherited properties.
+- Supports various inheritance types including class members, attributes, CSS parts, CSS variables, slots, and events.
+- Configurable options to customize the inheritance mapping process.
+- Integrates with JSDoc tags for additional customization.
 
 ## Installation
 
+To install the package, use the following command:
+
 ```bash
-npm i -D @wc-toolkit/cem-inheritance
+npm install @wc-toolkit/cem-inheritance
 ```
 
 ## Usage
 
-Using type aliases to define the types for your component's APIs, can be helpful for keeping your code clean and organized as well as making your types reusable.
+This package includes two ways to update the Custom Elements Manifest:
 
-```ts
-// my-component.ts
+1. using it in a script
+2. as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
 
-type Target = '_blank' | '_self' | '_parent' | '_top';
+### Script
 
-class MyLink extends HTMLElement {
-  target?: Target;
-}
+```js
+// my-script.js
+
+import { updateCemInheritance } from "@wc-toolkit/cem-inheritance";
+import manifest from "./path/to/custom-elements.json" with { type: 'json' };
+
+const options = {...};
+
+updateCemInheritance(manifest, options);
 ```
 
-This plugin parses the types for your component APIs in Custom Elements Manifest using the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/analyzer/getting-started/).
+### CEM Analyzer
+
+The plugin can be added to the [Custom Elements Manifest Analyzer configuration file](https://custom-elements-manifest.open-wc.org/analyzer/config/#config-file).
 
 ```js
 // custom-elements-manifest.config.js
 
-import { getTsProgram, typeParserPlugin } from "@wc-toolkit/cem-inheritance";
+import { cemInheritancePlugin } from "@wc-toolkit/cem-inheritance";
+
+const options = {...};
 
 export default {
-  ...
-  // Give the plugin access to the TypeScript type checker
-  overrideModuleCreation({ts, globs}) {
-    const program = getTsProgram(ts, globs, "tsconfig.json");
-    return program
-      .getSourceFiles()
-      .filter((sf) => globs.find((glob) => sf.fileName.includes(glob)));
-  },
-
-  // Add the plugin to the config
-  plugins: [typeParserPlugin()],
+  /** Enable this if you are extending a third-party library */
+  dependencies: true,
+  plugins: [
+    cemInheritancePlugin(options)
+  ],
 };
 ```
 
-## Result
+<div style="text-align: center; margin-top: 32px;">
+  <a href="https://stackblitz.com/edit/stackblitz-starters-57ju3afb?file=README.md" target="_blank">
+    <img
+      alt="Open in StackBlitz"
+      src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
+    />
+  </a>
+</div>
 
-It doesn't overwrite the existing property, but will create a new property with the parsed type value.
-
-```json
-// custom-elements.json
-
-{
-  "kind": "field",
-  "name": "target",
-  "description": "A lookup type for example",
-  "attribute": "target",
-  "type": {
-    "text": "Target | undefined"
-  },
-  "parsedType": {
-    "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
-  }
-}
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/stackblitz-starters-cngwm94d?file=README.md)
-
-Be sure to check out the [official docs](https://wc-toolkit.com/documentation/cem-inheritance) for more information on how to use this.
+Check out the [documentation](https://wc-toolkit.com/documentation/cem-inheritance) to see how to configure this to meet your project's needs.
