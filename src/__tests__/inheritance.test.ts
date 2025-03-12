@@ -64,4 +64,15 @@ describe('cem-inheritance', () => {
     expect(component?.events?.length).toEqual(0);
     expect(component?.slots?.length).toEqual(1);
   });
+
+  test('should include APIs from parent and mixin', () => {
+    // Arrange
+    const component = getComponentByClassName(cem, 'MyMixinComponent');
+    const properties = getComponentPublicProperties(component!);
+      
+    // Act
+    
+    // Assert
+    expect(properties.length).toEqual(9);
+  });
 });

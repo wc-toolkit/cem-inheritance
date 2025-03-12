@@ -1,6 +1,6 @@
 import { deepMerge } from "@wc-toolkit/cem-utilities";
 import { updateCemInheritance } from "./inheritance.js";
-import type { Options } from "./types";
+import type { CemInheritanceOptions } from "./types";
 import type { AnalyzePhaseParams, PackageLinkPhaseParams } from "@custom-elements-manifest/analyzer"
 import {parseJsDocTags, type CustomTag} from "@wc-toolkit/jsdoc-tags";
 import { defaultUserConfig } from "./default-values.js";
@@ -37,7 +37,7 @@ const defaultTags: CustomTag = {
   },
 }
 
-export function cemInheritancePlugin(options: Options = {}) {
+export function cemInheritancePlugin(options: CemInheritanceOptions = {}) {
   userOptions = deepMerge(defaultUserConfig, options);
   userOptions.usedByPlugin = true;
   return {

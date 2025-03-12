@@ -88,4 +88,4 @@ export class MyExtJsDocOmitComponent extends MyJsDocOmitComponent {}
  * @tag my-mixin-component
  * 
  */
-export class MyMixinComponent extends mixinElementInternals(MyComponent) {}
+export class MyMixinComponent extends mixinElementInternals(SlAlert) {}

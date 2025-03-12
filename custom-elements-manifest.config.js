@@ -1,4 +1,5 @@
 import { cemInheritancePlugin } from "./dist/index.js";
+import shoelaceCem from './demo/src/shoelace-cem.json' with { type: "json" };
 
 export default {
   /** Globs to analyze */
@@ -13,6 +14,7 @@ export default {
   packagejson: false,
   plugins: [
     cemInheritancePlugin({
+      externalManifests: [shoelaceCem],
       omitByConfig: {
         MyConfigOmitComponent: {
           cssParts: ["title"],
