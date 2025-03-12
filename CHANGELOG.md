@@ -1,5 +1,11 @@
 # @wc-toolkit/cem-inheritance
 
+## 1.0.2
+
+### Patch Changes
+
+- 5655ba4: Fixed logic for inheriting from an external manifest
+
 ## 1.0.1
 
 ### Patch Changes
