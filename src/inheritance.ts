@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Logger } from "./logger";
-import type { OmittedProperties, Options } from "./types";
+import type { CemInheritanceOptions, OmittedProperties } from "./types";
 import {
   deepMerge,
   getAllComponents,
@@ -15,9 +15,12 @@ let cemEntities: Component[] = [];
 let externalComponents: Component[] = [];
 let updatedCEM: unknown = {};
 let log: Logger;
-let userConfig: Options = defaultUserConfig;
+let userConfig: CemInheritanceOptions = defaultUserConfig;
 
-export function updateCemInheritance(cem: unknown, options: Options = {}) {
+export function updateCemInheritance(
+  cem: unknown,
+  options: CemInheritanceOptions = {}
+) {
   log = new Logger(options.debug);
   if (options.skip) {
     log.yellow("[cem-inheritance] - Skipped");
@@ -37,7 +40,7 @@ export function updateCemInheritance(cem: unknown, options: Options = {}) {
   log.green("[cem-inheritance] - Custom Elements Manifest updated.");
 }
 
-function updateOptions(options: Options = {}) {
+function updateOptions(options: CemInheritanceOptions = {}) {
   setExternalManifests(options.externalManifests);
   return deepMerge(userConfig, options);
 }
@@ -60,7 +63,7 @@ function createComponentMap(components: Component[]): Map<string, Component> {
   return map;
 }
 
-function generateUpdatedCem(cem: unknown, options: Options = {}) {
+function generateUpdatedCem(cem: unknown, options: CemInheritanceOptions = {}) {
   if (!cem) {
     throw new Error(
       "Custom Elements Manifest is required to update inheritance."
@@ -112,10 +115,11 @@ function processInheritanceQueue(
   }
 
   try {
-    // Process the queue using a while loop for better performance
     while (classQueue.length > 0) {
-      const component = classQueue.pop(); // Use pop for LIFO processing
-      if (!component) continue; // Skip if component is undefined
+      // Use pop for LIFO processing
+      const component = classQueue.pop();
+      // Skip if component is undefined
+      if (!component) continue;
 
       const parent =
         cemMap?.get(component.superclass?.name || "") ||
@@ -181,13 +185,16 @@ function updateApi(
     return;
   }
 
-  component[api] = component[api] || [];
+  if (!component[api]) {
+    component[api] = [];
+  }
+
   (parent[api] as any[])?.forEach((element) => {
     let apiItem = (component[api] as any[])?.find(
       (a) => a.name === element.name
     );
     if (!apiItem) {
-      apiItem = addInheritedFromInfo(element, component);
+      apiItem = addInheritedFromInfo(element, parent.name);
       (component[api] as any[]).push(apiItem);
     }
   });
@@ -196,12 +203,14 @@ function updateApi(
     (a) => !omit.includes(a.name) && a.inheritedFrom
   );
 
-  if (api === "attributes" && component.members?.length) {
-    component.members = component.members.filter(
-      (a) =>
-        a.name ===
-          parent.attributes?.find((x) => omit.includes(x.name))?.fieldName &&
-        a.inheritedFrom
+  if (api === "attributes" && component.members?.length && omit.length) {
+    const omittedAttributeFields = component.attributes
+      ?.filter((a) => omit.includes(a.name || ""))
+      .map((a) => a.fieldName);
+    component.members = component.members.filter((member) =>
+      member.inheritedFrom
+        ? !omittedAttributeFields?.includes(member.name)
+        : true
     );
   }
 }
@@ -220,11 +229,14 @@ function updateClassMembers(
     return;
   }
 
-  component.members = component.members || [];
-  parentContent?.forEach((element) => {
-    let apiItem = component.members?.find((a) => a.name === element.name);
+  if (!component.members) {
+    component.members = [];
+  }
+
+  parentContent?.forEach((member) => {
+    let apiItem = component.members?.find((a) => a.name === member.name);
     if (!apiItem) {
-      apiItem = addInheritedFromInfo(element, component);
+      apiItem = addInheritedFromInfo(member, parent.name);
       component.members!.push(apiItem!);
     }
   });
@@ -240,11 +252,11 @@ function updateClassMembers(
   }
 }
 
-function addInheritedFromInfo(member: any, component: Component) {
+function addInheritedFromInfo(member: any, parentName?: string) {
   const newMember = { ...member };
   if (!member.inheritedFrom) {
     newMember.inheritedFrom = {
-      name: component.superclass?.name,
+      name: parentName || "",
     };
   }
   return newMember;
@@ -256,7 +268,7 @@ function addInheritedFromInfo(member: any, component: Component) {
  * @param exclude and array of component names to exclude
  * @returns Component[]
  */
-export function getDeclarations(
+function getDeclarations(
   customElementsManifest: unknown,
   exclude?: string[]
 ): Component[] {
