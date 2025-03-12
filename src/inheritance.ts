@@ -41,7 +41,6 @@ export function updateCemInheritance(
 }
 
 function updateOptions(options: CemInheritanceOptions = {}) {
-  setExternalManifests(options.externalManifests);
   return deepMerge(userConfig, options);
 }
 
@@ -72,6 +71,7 @@ function generateUpdatedCem(cem: unknown, options: CemInheritanceOptions = {}) {
 
   updatedCEM = cem;
   userConfig = options.usedByPlugin ? options : updateOptions(options);
+  setExternalManifests(userConfig.externalManifests);
   cemEntities = getDeclarations(cem, userConfig.exclude);
   const cemMap = createComponentMap(cemEntities);
   const externalMap = createComponentMap(externalComponents);
