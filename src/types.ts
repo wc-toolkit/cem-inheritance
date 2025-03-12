@@ -1,4 +1,6 @@
-export type Options = {
+import type * as cem from "custom-elements-manifest";
+
+export type CemInheritanceOptions = {
   /** Name of the updated CEM file - default is "custom-elements.json" */
   fileName?: string;
   /** Path to output directory */
@@ -21,6 +23,9 @@ export type Options = {
   usedByPlugin?: boolean;
 };
 
+/** @deprecated This has been replaced with `CemInheritanceOptions` */
+export type Options = CemInheritanceOptions;
+
 export type ConfigOmit = {
   [key: string]: OmittedApis;
 };
@@ -37,3 +42,6 @@ export type OmittedProperties = {
 };
 
 export type OmittedApis = Record<keyof OmittedProperties, string[]>;
+
+/** A generic extension of the CEM `MixinDeclaration` type to allow for strongly typing your custom data */
+export type Mixin<T = Record<string, unknown>> = cem.MixinDeclaration & T;

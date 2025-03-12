@@ -156,7 +156,8 @@
                 "text": "string"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -166,7 +167,8 @@
                 "text": "number"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -176,7 +178,8 @@
                 "text": "boolean"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -186,7 +189,16 @@
                 "text": "\"sports\" | \"music\" | \"art\""
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             }
           ],
@@ -268,7 +280,8 @@
                 "text": "string"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -278,7 +291,8 @@
                 "text": "number"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -288,7 +302,8 @@
                 "text": "boolean"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -298,7 +313,16 @@
                 "text": "\"sports\" | \"music\" | \"art\""
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             }
           ],
@@ -403,7 +427,8 @@
                 "text": "string"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -413,7 +438,8 @@
                 "text": "boolean"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -423,7 +449,16 @@
                 "text": "\"sports\" | \"music\" | \"art\""
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             }
           ],
@@ -496,7 +531,8 @@
                 "text": "string"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -506,7 +542,8 @@
                 "text": "boolean"
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             },
             {
@@ -516,7 +553,16 @@
                 "text": "\"sports\" | \"music\" | \"art\""
               },
               "inheritedFrom": {
-                "name": "MyComponent"
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
               }
             }
           ],
@@ -560,6 +606,182 @@
               "name": "my-event"
             }
           ]
+        },
+        {
+          "kind": "class",
+          "description": "Component where items are extended form a mixin",
+          "name": "MyMixinComponent",
+          "mixins": [
+            {
+              "name": "mixinElementInternals",
+              "module": "/demo/src/my-mixin"
+            }
+          ],
+          "superclass": {
+            "name": "MyComponent",
+            "module": "demo/src/my-components.ts"
+          },
+          "tagName": "my-mixin-component",
+          "customElement": true,
+          "members": [
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "mixinElementInternals",
+                "module": "demo/src/my-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "myProp",
+              "type": {
+                "text": "string"
+              },
+              "default": "'test'",
+              "inheritedFrom": {
+                "name": "mixinElementInternals",
+                "module": "demo/src/my-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "mixinElementInternals",
+                "module": "demo/src/my-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "age",
+              "type": {
+                "text": "number"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hobby",
+              "type": {
+                "text": "\"sports\" | \"music\" | \"art\""
+              },
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "description": "The title of the component",
+              "name": "",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The title of the component",
+              "name": "title",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "description": "The content of the component",
+              "name": "content",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssProperties": [
+            {
+              "description": "The color of the component",
+              "name": "--my-component-color",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "description": "The background color of the component",
+              "name": "--my-component-background-color",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "My event",
+              "name": "my-event",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "cssStates": [
+            {
+              "description": "The active state of the component",
+              "name": "active",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            },
+            {
+              "description": "The disabled state of the component",
+              "name": "disabled",
+              "inheritedFrom": {
+                "name": "MyComponent",
+                "module": "demo/src/my-components.ts"
+              }
+            }
+          ],
+          "attributes": []
         }
       ],
       "exports": [
@@ -601,6 +823,60 @@
           "declaration": {
             "name": "MyExtJsDocOmitComponent",
             "module": "demo/src/my-components.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MyMixinComponent",
+          "declaration": {
+            "name": "MyMixinComponent",
+            "module": "demo/src/my-components.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "demo/src/my-mixin.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "mixinElementInternals",
+          "members": [
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "myProp",
+              "type": {
+                "text": "string"
+              },
+              "default": "'test'"
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "base"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "mixinElementInternals",
+          "declaration": {
+            "name": "mixinElementInternals",
+            "module": "demo/src/my-mixin.ts"
           }
         }
       ]

@@ -1,3 +1,5 @@
+import { mixinElementInternals } from "./my-mixin";
+
 /**
  * Base component
  *
@@ -80,3 +82,10 @@ export class MyJsDocOmitComponent extends MyComponent {}
  * 
  */
 export class MyExtJsDocOmitComponent extends MyJsDocOmitComponent {}
+
+/**
+ * Component where items are extended form a mixin
+ * @tag my-mixin-component
+ * 
+ */
+export class MyMixinComponent extends mixinElementInternals(MyComponent) {}
