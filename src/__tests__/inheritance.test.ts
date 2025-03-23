@@ -94,6 +94,6 @@ describe('cem-inheritance', () => {
     // Act
     
     // Assert
-    expect(properties.length).toEqual(9);
+    expect(properties.length).toEqual(10);
   });
 });
