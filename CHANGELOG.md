@@ -1,5 +1,12 @@
 # @wc-toolkit/cem-inheritance
 
+## 1.0.3
+
+### Patch Changes
+
+- 116ce77: Fixed issue where mixins aren't inheriting from external manifests
+- 116ce77: Fixed problem where multiple manifests are passed to the configuration
+
 ## 1.0.2
 
 ### Patch Changes
