@@ -1,6 +1,6 @@
 {
   "name": "@wc-toolkit/cem-inheritance",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A tool for mapping inherited content (including class members, attributes, CSS parts, CSS variables, slots, and events) from parent web component classes in the Custom Elements Manifest",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

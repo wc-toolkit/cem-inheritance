@@ -1,5 +1,11 @@
 # @wc-toolkit/cem-inheritance
 
+## 1.0.4
+
+### Patch Changes
+
+- b1a26a5: fixed issue where local properties and methods were being omitted
+
 ## 1.0.3
 
 ### Patch Changes
