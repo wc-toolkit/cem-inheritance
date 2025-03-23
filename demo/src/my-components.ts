@@ -95,4 +95,7 @@ export class MyMixinComponent extends mixinElementInternals(SlAlert) {}
  * @tag my-mixin-component
  * 
  */
-export class MyExternalMixinComponent extends extMixin(SlAlert) {}
+export class MyExternalMixinComponent extends extMixin(SlAlert) {
+  localName: string;
+}
+

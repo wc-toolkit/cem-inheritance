@@ -270,12 +270,12 @@ function updateClassMembers(
 
 
   component.members = component.members?.filter(
-    (a) => !omit.includes(a.name) && a.inheritedFrom
+    (a) => !omit.includes(a.name)
   );
 
   if (api !== "methods" && component.attributes?.length) {
     component.attributes = component.attributes.filter(
-      (a) => !omit.includes(a.fieldName || "") && a.inheritedFrom
+      (a) => !omit.includes(a.fieldName || "")
     );
   }
 }

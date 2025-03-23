@@ -1075,59 +1075,14 @@
           "kind": "class",
           "description": "Component where items are extended form a mixin",
           "name": "MyExternalMixinComponent",
-          "mixins": [
-            {
-              "name": "extMixin",
-              "module": "demo/src/my-components.ts"
-            }
-          ],
-          "superclass": {
-            "name": "SlAlert",
-            "module": "demo/src/my-components.ts"
-          },
-          "tagName": "my-mixin-component",
-          "customElement": true,
-          "modulePath": "demo/src/my-components.ts",
-          "cssProperties": [],
-          "cssParts": [
-            {
-              "description": "The component's base wrapper.",
-              "name": "base",
-              "inheritedFrom": {
-                "name": "SlAlert"
-              }
-            },
-            {
-              "description": "The container that wraps the optional icon.",
-              "name": "icon",
-              "inheritedFrom": {
-                "name": "SlAlert"
-              }
-            },
-            {
-              "description": "The container that wraps the alert's main content.",
-              "name": "message",
-              "inheritedFrom": {
-                "name": "SlAlert"
-              }
-            },
-            {
-              "description": "The close button, an `<sl-icon-button>`.",
-              "name": "close-button",
-              "inheritedFrom": {
-                "name": "SlAlert"
-              }
-            },
-            {
-              "description": "The close button's exported `base` part.",
-              "name": "close-button__base",
-              "inheritedFrom": {
-                "name": "SlAlert"
-              }
-            }
-          ],
-          "cssStates": [],
           "members": [
+            {
+              "kind": "field",
+              "name": "localName",
+              "type": {
+                "text": "string"
+              }
+            },
             {
               "kind": "method",
               "name": "restartAutoHide",
@@ -1394,6 +1349,58 @@
               }
             }
           ],
+          "mixins": [
+            {
+              "name": "extMixin",
+              "module": "demo/src/my-components.ts"
+            }
+          ],
+          "superclass": {
+            "name": "SlAlert",
+            "module": "demo/src/my-components.ts"
+          },
+          "tagName": "my-mixin-component",
+          "customElement": true,
+          "modulePath": "demo/src/my-components.ts",
+          "cssProperties": [],
+          "cssParts": [
+            {
+              "description": "The component's base wrapper.",
+              "name": "base",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The container that wraps the optional icon.",
+              "name": "icon",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The container that wraps the alert's main content.",
+              "name": "message",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The close button, an `<sl-icon-button>`.",
+              "name": "close-button",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The close button's exported `base` part.",
+              "name": "close-button__base",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ],
+          "cssStates": [],
           "attributes": [
             {
               "name": "open",
