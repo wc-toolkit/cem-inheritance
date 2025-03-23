@@ -1,9 +1,19 @@
 import { describe, expect, test } from "vitest";
 import cem from '../../demo/custom-elements.json' with { type: 'json' };
+import shoelaceCem from '../../demo/src/shoelace-cem.json' with { type: 'json' };
+import extMixinCem from '../../demo/src/ext-mixin-cem.json' with { type: 'json' };
 import { getComponentByClassName, getComponentPublicProperties } from "@wc-toolkit/cem-utilities";
+import { generateUpdatedCem } from "../../src/inheritance";
 
 
 describe('cem-inheritance', () => {
+  const updatedCem = generateUpdatedCem(cem, {
+    externalManifests: [
+      shoelaceCem,
+      extMixinCem,
+    ]
+  });
+  console.log('updatedCem', updatedCem);
 
   test('should inherit APIs from parent', () => {
     // Arrange
@@ -68,6 +78,17 @@ describe('cem-inheritance', () => {
   test('should include APIs from parent and mixin', () => {
     // Arrange
     const component = getComponentByClassName(cem, 'MyMixinComponent');
+    const properties = getComponentPublicProperties(component!);
+      
+    // Act
+    
+    // Assert
+    expect(properties.length).toEqual(9);
+  });
+
+  test('should include APIs from parent and mixin', () => {
+    // Arrange
+    const component = getComponentByClassName(updatedCem, 'MyExternalMixinComponent');
     const properties = getComponentPublicProperties(component!);
       
     // Act

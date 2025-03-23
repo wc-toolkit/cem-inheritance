@@ -4,7 +4,9 @@ import type { CemInheritanceOptions, OmittedProperties } from "./types";
 import {
   deepMerge,
   getAllComponents,
+  type Mixin,
   type Component,
+  getAllMixins,
 } from "@wc-toolkit/cem-utilities";
 import { createOutDir, saveFile } from "./utilities";
 import { defaultUserConfig } from "./default-values";
@@ -13,6 +15,7 @@ const completedClasses: Set<string> = new Set();
 let classQueue: Component[] = [];
 let cemEntities: Component[] = [];
 let externalComponents: Component[] = [];
+let externalMixins: Mixin[] = [];
 let updatedCEM: unknown = {};
 let log: Logger;
 let userConfig: CemInheritanceOptions = defaultUserConfig;
@@ -49,9 +52,12 @@ function setExternalManifests(manifests?: unknown[]) {
     return;
   }
 
-  externalComponents = manifests.flatMap((manifest) =>
-    getDeclarations(manifest)
-  );
+  const combinedManifests = {
+    modules: manifests.flatMap((manifest) => (manifest as { modules: unknown[] }).modules),
+  }
+
+  externalComponents = getDeclarations(combinedManifests);
+  externalMixins = getAllMixins(combinedManifests);
 }
 
 function createComponentMap(components: Component[]): Map<string, Component> {
@@ -62,7 +68,7 @@ function createComponentMap(components: Component[]): Map<string, Component> {
   return map;
 }
 
-function generateUpdatedCem(cem: unknown, options: CemInheritanceOptions = {}) {
+export function generateUpdatedCem(cem: unknown, options: CemInheritanceOptions = {}) {
   if (!cem) {
     throw new Error(
       "Custom Elements Manifest is required to update inheritance."
@@ -241,6 +247,28 @@ function updateClassMembers(
     }
   });
 
+  component.mixins?.forEach((mixin) => {
+    const extMixin = externalMixins.find(
+      (extMixin) => extMixin.name === mixin.name
+    );
+    if (!extMixin) {
+      return;
+    }
+    const mixinApi = extMixin?.members?.filter(
+      (m) => m.kind === (api === "methods" ? "method" : "field")
+    );
+    mixinApi?.forEach((element) => {
+      let apiItem = (component[api] as any[])?.find(
+        (a) => a.name === element.name
+      );
+      if (!apiItem) {
+        apiItem = addInheritedFromInfo(element, extMixin.name);
+        component.members!.push(apiItem!);
+      }
+    });
+  });
+
+
   component.members = component.members?.filter(
     (a) => !omit.includes(a.name) && a.inheritedFrom
   );
@@ -272,7 +300,7 @@ function getDeclarations(
   customElementsManifest: unknown,
   exclude?: string[]
 ): Component[] {
-  return getAllComponents(customElementsManifest).filter(
-    (c) => !exclude?.includes(c.name)
+  return getAllComponents(customElementsManifest)?.filter(
+    (c) => !exclude?.includes(c.name) || []
   );
 }
