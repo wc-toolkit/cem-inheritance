@@ -89,3 +89,10 @@ export class MyExtJsDocOmitComponent extends MyJsDocOmitComponent {}
  * 
  */
 export class MyMixinComponent extends mixinElementInternals(SlAlert) {}
+
+/**
+ * Component where items are extended form a mixin
+ * @tag my-mixin-component
+ * 
+ */
+export class MyExternalMixinComponent extends extMixin(SlAlert) {}

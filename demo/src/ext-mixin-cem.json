@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/ext-mixin.js",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "extMixin",
+          "members": [
+            {
+              "kind": "field",
+              "name": "mixinProp"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "base"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "extMixin",
+          "declaration": {
+            "name": "extMixin",
+            "module": "src/ext-mixin.js"
+          }
+        }
+      ]
+    }
+  ]
+}
