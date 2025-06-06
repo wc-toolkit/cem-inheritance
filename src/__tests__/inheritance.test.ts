@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, test } from "vitest";
 import cem from '../../demo/custom-elements.json' with { type: 'json' };
 import shoelaceCem from '../../demo/src/shoelace-cem.json' with { type: 'json' };
@@ -7,13 +8,20 @@ import { generateUpdatedCem } from "../../src/inheritance";
 
 
 describe('cem-inheritance', () => {
-  const updatedCem = generateUpdatedCem(cem, {
+  const updatedCem = generateUpdatedCem({...cem}, {
     externalManifests: [
       shoelaceCem,
       extMixinCem,
     ]
   });
-  console.log('updatedCem', updatedCem);
+
+  const extendedCem = generateUpdatedCem({...cem}, {
+    includeExternalManifests: true,
+    externalManifests: [
+      shoelaceCem,
+      extMixinCem,
+    ]
+  });
 
   test('should inherit APIs from parent', () => {
     // Arrange
@@ -95,5 +103,37 @@ describe('cem-inheritance', () => {
     
     // Assert
     expect(properties.length).toEqual(10);
+  });
+
+  test('should include external manifest declarations when `includeExternalManifests` is "true"', () => {
+    // Arrange
+    const originalModuleCount = (updatedCem as any).modules?.length || 0;
+    const extendedModuleCount = (extendedCem as any).modules?.length || 0;
+
+    // Act
+
+    // Assert
+    expect(extendedModuleCount).toBeGreaterThan(originalModuleCount);
+  });
+
+  test('should not include external manifest declarations when `includeExternalManifests` is "false"', () => {
+    // Arrange
+    const cemWithoutExternal = generateUpdatedCem(cem, {
+      includeExternalManifests: false,
+      externalManifests: [
+        shoelaceCem,
+        extMixinCem,
+      ]
+    });
+    
+    const originalModuleCount = (cem as any).modules?.length || 0;
+    const updatedModuleCount = (cemWithoutExternal as any).modules?.length || 0;
+    
+    // Act & Assert
+    expect(updatedModuleCount).toEqual(originalModuleCount);
+    
+    // Check that no external module was added
+    const externalModule = (cemWithoutExternal as any).modules?.find((module: any) => module.path === '_external');
+    expect(externalModule).toBeUndefined();
   });
 });
