@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Logger } from "./logger";
 import type { CemInheritanceOptions, OmittedProperties } from "./types";
+import type * as cem from "custom-elements-manifest";
 import {
   deepMerge,
   getAllComponents,
@@ -75,10 +76,18 @@ export function generateUpdatedCem(cem: unknown, options: CemInheritanceOptions 
     );
   }
 
-  updatedCEM = cem;
+  const originalCEM = structuredClone(cem);
+
+  updatedCEM =  originalCEM;
   userConfig = options.usedByPlugin ? options : updateOptions(options);
   setExternalManifests(userConfig.externalManifests);
-  cemEntities = getDeclarations(cem, userConfig.exclude);
+  
+  // Include external manifests in the main manifest if option is enabled
+  if (userConfig.includeExternalManifests && userConfig.externalManifests?.length) {
+    updatedCEM = mergeExternalManifests(updatedCEM as cem.Package, userConfig.externalManifests as cem.Package[]);
+  }
+  
+  cemEntities = getDeclarations(originalCEM, userConfig.exclude);
   const cemMap = createComponentMap(cemEntities);
   const externalMap = createComponentMap(externalComponents);
 
@@ -303,4 +312,31 @@ function getDeclarations(
   return getAllComponents(customElementsManifest)?.filter(
     (c) => !exclude?.includes(c.name) || []
   );
+}
+
+/**
+ * Merges external manifest declarations into the main manifest
+ */
+function mergeExternalManifests(
+  mainManifest: cem.Package,
+  externalManifests: cem.Package[]
+): cem.Package {
+  if (!externalManifests || externalManifests.length === 0) {
+    return mainManifest;
+  }
+
+  const mergedManifest = { ...mainManifest };
+  
+  // Ensure modules array exists
+  if (!mergedManifest.modules) {
+    mergedManifest.modules = [];
+  }
+
+  for (const externalManifest of externalManifests) {
+    if (externalManifest.modules) {
+      mergedManifest.modules.push(...externalManifest.modules);
+    }
+  }
+
+  return mergedManifest;
 }

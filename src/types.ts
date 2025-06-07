@@ -15,6 +15,8 @@ export type CemInheritanceOptions = {
   ignore?: string[];
   /** External CEMs that your components extend */
   externalManifests?: unknown[];
+  /** Include external manifest declarations in your manifest */
+  includeExternalManifests?: boolean;
   /** Shows process logs */
   debug?: boolean;
   /** Prevents plugin from executing */
