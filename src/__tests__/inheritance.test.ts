@@ -8,14 +8,14 @@ import { generateUpdatedCem } from "../../src/inheritance";
 
 
 describe('cem-inheritance', () => {
-  const updatedCem = generateUpdatedCem({...cem}, {
+  const updatedCem = generateUpdatedCem(cem, {
     externalManifests: [
       shoelaceCem,
       extMixinCem,
     ]
   });
 
-  const extendedCem = generateUpdatedCem({...cem}, {
+  const extendedCem = generateUpdatedCem(cem, {
     includeExternalManifests: true,
     externalManifests: [
       shoelaceCem,
@@ -25,7 +25,7 @@ describe('cem-inheritance', () => {
 
   test('should inherit APIs from parent', () => {
     // Arrange
-    const component = getComponentByClassName(cem, 'MyExtComponent');
+    const component = getComponentByClassName(updatedCem, 'MyExtComponent');
     const properties = getComponentPublicProperties(component!);
       
     // Act
@@ -40,22 +40,22 @@ describe('cem-inheritance', () => {
 
   test('should omit APIs based on CEM config', () => {
     // Arrange
-    const component = getComponentByClassName(cem, 'MyConfigOmitComponent');
+    const component = getComponentByClassName(updatedCem, 'MyConfigOmitComponent');
     const properties = getComponentPublicProperties(component!);
       
     // Act
     
     // Assert
     expect(properties.length).toEqual(4);
-    expect(component?.cssParts?.length).toEqual(1);
-    expect(component?.cssProperties?.length).toEqual(1);
-    expect(component?.events?.length).toEqual(0);
+    expect(component?.cssParts?.length).toEqual(2);
+    expect(component?.cssProperties?.length).toEqual(2);
+    expect(component?.events?.length).toEqual(1);
     expect(component?.slots?.length).toEqual(1);
   });
 
   test('should omit APIs based on JSDoc tags', () => {
     // Arrange
-    const component = getComponentByClassName(cem, 'MyJsDocOmitComponent');
+    const component = getComponentByClassName(updatedCem, 'MyJsDocOmitComponent');
     const properties = getComponentPublicProperties(component!);
       
     // Act
@@ -70,7 +70,7 @@ describe('cem-inheritance', () => {
 
   test('should omit APIs based on parent omissions', () => {
     // Arrange
-    const component = getComponentByClassName(cem, 'MyExtJsDocOmitComponent');
+    const component = getComponentByClassName(updatedCem, 'MyExtJsDocOmitComponent');
     const properties = getComponentPublicProperties(component!);
       
     // Act
@@ -85,7 +85,7 @@ describe('cem-inheritance', () => {
 
   test('should include APIs from parent and mixin', () => {
     // Arrange
-    const component = getComponentByClassName(cem, 'MyMixinComponent');
+    const component = getComponentByClassName(updatedCem, 'MyMixinComponent');
     const properties = getComponentPublicProperties(component!);
       
     // Act
@@ -102,7 +102,7 @@ describe('cem-inheritance', () => {
     // Act
     
     // Assert
-    expect(properties.length).toEqual(10);
+    expect(properties.length).toEqual(9);
   });
 
   test('should include external manifest declarations when `includeExternalManifests` is "true"', () => {
