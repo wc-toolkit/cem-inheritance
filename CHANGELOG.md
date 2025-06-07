@@ -1,5 +1,11 @@
 # @wc-toolkit/cem-inheritance
 
+## 1.1.0
+
+### Minor Changes
+
+- 5beb9c1: Added `includeExternalManifests` option to include all modules from externla manifests
+
 ## 1.0.4
 
 ### Patch Changes
