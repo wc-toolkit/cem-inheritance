@@ -1,5 +1,11 @@
 # @wc-toolkit/cem-inheritance
 
+## 1.2.0
+
+### Minor Changes
+
+- 24a4754: Added new `aliasMap` setting to map renamed extended class names
+
 ## 1.1.0
 
 ### Minor Changes
