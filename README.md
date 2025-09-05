@@ -21,7 +21,7 @@ This helps in maintaining a clear and comprehensive documentation of web compone
 To install the package, use the following command:
 
 ```bash
-npm install @wc-toolkit/cem-inheritance
+npm install -D @wc-toolkit/cem-inheritance
 ```
 
 ## Usage

@@ -136,4 +136,30 @@ describe('cem-inheritance', () => {
     const externalModule = (cemWithoutExternal as any).modules?.find((module: any) => module.path === '_external');
     expect(externalModule).toBeUndefined();
   });
+
+  test('should handle class name aliases', () => {
+    // Arrange
+    const updatedCemWithAlias = generateUpdatedCem(cem, {
+      externalManifests: [
+        shoelaceCem,
+        extMixinCem,
+      ],
+      aliasMap: {
+        'ShoelaceElement': 'ShoelaceBase',
+        'ExtMixin': 'RenamedExtMixin'
+      }
+    });
+
+    const component = getComponentByClassName(updatedCemWithAlias, 'MyExtComponent');
+    const properties = getComponentPublicProperties(component!);
+      
+    // Act
+    
+    // Assert
+    expect(properties.length).toEqual(4);
+    expect(component?.cssParts?.length).toEqual(2);
+    expect(component?.cssProperties?.length).toEqual(2);
+    expect(component?.events?.length).toEqual(1);
+    expect(component?.slots?.length).toEqual(1);
+  });
 });

@@ -54,8 +54,10 @@ function setExternalManifests(manifests?: unknown[]) {
   }
 
   const combinedManifests = {
-    modules: manifests.flatMap((manifest) => (manifest as { modules: unknown[] }).modules),
-  }
+    modules: manifests.flatMap(
+      (manifest) => (manifest as { modules: unknown[] }).modules
+    ),
+  };
 
   externalComponents = getDeclarations(combinedManifests);
   externalMixins = getAllMixins(combinedManifests);
@@ -69,7 +71,10 @@ function createComponentMap(components: Component[]): Map<string, Component> {
   return map;
 }
 
-export function generateUpdatedCem(cem: unknown, options: CemInheritanceOptions = {}) {
+export function generateUpdatedCem(
+  cem: unknown,
+  options: CemInheritanceOptions = {}
+) {
   if (!cem) {
     throw new Error(
       "Custom Elements Manifest is required to update inheritance."
@@ -78,15 +83,21 @@ export function generateUpdatedCem(cem: unknown, options: CemInheritanceOptions 
 
   const originalCEM = structuredClone(cem);
 
-  updatedCEM =  originalCEM;
+  updatedCEM = originalCEM;
   userConfig = options.usedByPlugin ? options : updateOptions(options);
   setExternalManifests(userConfig.externalManifests);
-  
+
   // Include external manifests in the main manifest if option is enabled
-  if (userConfig.includeExternalManifests && userConfig.externalManifests?.length) {
-    updatedCEM = mergeExternalManifests(updatedCEM as cem.Package, userConfig.externalManifests as cem.Package[]);
+  if (
+    userConfig.includeExternalManifests &&
+    userConfig.externalManifests?.length
+  ) {
+    updatedCEM = mergeExternalManifests(
+      updatedCEM as cem.Package,
+      userConfig.externalManifests as cem.Package[]
+    );
   }
-  
+
   cemEntities = getDeclarations(originalCEM, userConfig.exclude);
   const cemMap = createComponentMap(cemEntities);
   const externalMap = createComponentMap(externalComponents);
@@ -134,11 +145,16 @@ function processInheritanceQueue(
       // Use pop for LIFO processing
       const component = classQueue.pop();
       // Skip if component is undefined
-      if (!component) continue;
+      if (!component) {
+        continue;
+      }
 
-      const parent =
-        cemMap?.get(component.superclass?.name || "") ||
-        externalMap?.get(component.superclass?.name || "");
+      const parentName =
+        (userConfig.aliasMap &&
+          userConfig.aliasMap[component.superclass?.name || ""]) ||
+        component.superclass?.name ||
+        "";
+      const parent = cemMap?.get(parentName) || externalMap?.get(parentName);
 
       if (parent) {
         Object.keys(defaultUserConfig.omitByProperty!).forEach((key) => {
@@ -277,10 +293,7 @@ function updateClassMembers(
     });
   });
 
-
-  component.members = component.members?.filter(
-    (a) => !omit.includes(a.name)
-  );
+  component.members = component.members?.filter((a) => !omit.includes(a.name));
 
   if (api !== "methods" && component.attributes?.length) {
     component.attributes = component.attributes.filter(
@@ -326,7 +339,7 @@ function mergeExternalManifests(
   }
 
   const mergedManifest = { ...mainManifest };
-  
+
   // Ensure modules array exists
   if (!mergedManifest.modules) {
     mergedManifest.modules = [];

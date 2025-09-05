@@ -21,6 +21,8 @@ export type CemInheritanceOptions = {
   debug?: boolean;
   /** Prevents plugin from executing */
   skip?: boolean;
+  /** Map of class names to alternative class names */
+  aliasMap?: Record<string, string>;
   /** @internal Used to indicate if this is used as a CEM a plugin */
   usedByPlugin?: boolean;
 };
