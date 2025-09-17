@@ -1,5 +1,11 @@
 # @wc-toolkit/cem-inheritance
 
+## 1.2.1
+
+### Patch Changes
+
+- 85987b1: Fixed inheritance when using the `aliasMap`
+
 ## 1.2.0
 
 ### Minor Changes
