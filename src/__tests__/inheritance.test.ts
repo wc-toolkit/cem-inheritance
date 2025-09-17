@@ -162,4 +162,50 @@ describe('cem-inheritance', () => {
     expect(component?.events?.length).toEqual(1);
     expect(component?.slots?.length).toEqual(1);
   });
+
+  test('resolveParent should prefer externalMap when cemMap entry === component', async () => {
+    // Arrange: create a fake component and duplicate parent entries
+    const component = { name: 'DuplicateParent' } as any; // same object identity simulated by reference
+
+    // cemMap contains the same object reference as the component
+    const cemMap = new Map<string, any>();
+    cemMap.set('DuplicateParent', component);
+
+    // externalMap contains a different object representing the real parent
+    const externalParent = { name: 'DuplicateParent', members: [{ name: 'x' }] } as any;
+    const externalMap = new Map<string, any>();
+    externalMap.set('DuplicateParent', externalParent);
+
+  // Act: dynamically import the helper from the module under test
+  const mod = await import('../../src/inheritance');
+  const resolved = mod.resolveParent('DuplicateParent', component, cemMap, externalMap);
+
+    // Assert: should return the external parent, not the cemMap component
+    expect(resolved).toBe(externalParent);
+  });
+
+  test('resolveParent should honor aliasMap when resolving parent names', async () => {
+    // Arrange: prepare small maps and an aliasMap to pass directly
+    const aliasMap = { AliasedParent: 'RealParent' } as Record<string, string>;
+
+    const component = { name: 'Child' } as any;
+
+    // cemMap maps RealParent to a component (not the same as component)
+    const realParent = { name: 'RealParent', members: [] } as any;
+    const cemMap = new Map<string, any>();
+    cemMap.set('RealParent', realParent);
+
+    // externalMap contains another RealParent entry
+    const externalParent = { name: 'RealParent', members: [{ name: 'y' }] } as any;
+    const externalMap = new Map<string, any>();
+    externalMap.set('RealParent', externalParent);
+
+    // Act: use resolveParent with the aliased name and pass aliasMap directly
+    const mod = await import('../../src/inheritance');
+    const resolved = mod.resolveParent('AliasedParent', component, cemMap, externalMap, aliasMap);
+
+    // Assert: resolved should be the cemMap entry (since cemMap entry != component),
+    // and alias should be applied to map to 'RealParent'
+    expect(resolved).toBe(realParent);
+  });
 });

@@ -111,6 +111,42 @@ export function generateUpdatedCem(
   return updatedCEM;
 }
 
+/**
+ * Resolve the parent component given a raw superclass name.
+ *
+ * Behavior and contract:
+ * - The function first resolves any configured alias mapping from `userConfig.aliasMap`.
+ *   If an alias exists for `rawSuperName`, the alias is used as the canonical
+ *   parent name. Otherwise `rawSuperName` is used as-is.
+ * - The function attempts to find the parent declaration in `cemMap` first,
+ *   then `externalMap` as a fallback.
+ * - If the `cemMap` entry for the resolved parent name is the same object as
+ *   the `component` passed in (this can happen when declarations are duplicated
+ *   between the main manifest and external manifests), the function prefers the
+ *   `externalMap` entry to avoid treating a component as its own parent.
+ *
+ * Returns the resolved parent `Component` or `undefined` if not found.
+ *
+ * Exported for testing and reuse across this module.
+ */
+export function resolveParent(
+  rawSuperName: string | undefined,
+  component: Component,
+  cemMap?: Map<string, Component>,
+  externalMap?: Map<string, Component>,
+  aliasMap?: Record<string, string>
+): Component | undefined {
+  const aliases = aliasMap ?? userConfig.aliasMap;
+  const parentName = (aliases && aliases[rawSuperName || ""]) || rawSuperName || "";
+
+  let parent = cemMap?.get(parentName) || externalMap?.get(parentName);
+  const cemParent = cemMap?.get(parentName);
+  if (cemParent && cemParent === component) {
+    parent = externalMap?.get(parentName) || cemParent;
+  }
+  return parent;
+}
+
 function getAncestors(
   component?: Component,
   cemMap?: Map<string, Component>,
@@ -125,9 +161,8 @@ function getAncestors(
     component.superclass?.name &&
     !completedClasses.has(component.superclass.name)
   ) {
-    const parent =
-      cemMap?.get(component.superclass.name) ||
-      externalMap?.get(component.superclass.name);
+  const parent = resolveParent(component.superclass?.name, component, cemMap, externalMap, userConfig.aliasMap);
+
     getAncestors(parent, cemMap, externalMap);
   }
 }
@@ -149,12 +184,7 @@ function processInheritanceQueue(
         continue;
       }
 
-      const parentName =
-        (userConfig.aliasMap &&
-          userConfig.aliasMap[component.superclass?.name || ""]) ||
-        component.superclass?.name ||
-        "";
-      const parent = cemMap?.get(parentName) || externalMap?.get(parentName);
+  const parent = resolveParent(component.superclass?.name, component, cemMap, externalMap, userConfig.aliasMap);
 
       if (parent) {
         Object.keys(defaultUserConfig.omitByProperty!).forEach((key) => {
