@@ -17,7 +17,6 @@ let classQueue: Component[] = [];
 let cemEntities: Component[] = [];
 let externalComponents: Component[] = [];
 let externalMixins: Mixin[] = [];
-let updatedCEM: unknown = {};
 let log: Logger;
 let userConfig: CemInheritanceOptions = defaultUserConfig;
 
@@ -81,9 +80,6 @@ export function generateUpdatedCem(
     );
   }
 
-  const originalCEM = structuredClone(cem);
-
-  updatedCEM = originalCEM;
   userConfig = options.usedByPlugin ? options : updateOptions(options);
   setExternalManifests(userConfig.externalManifests);
 
@@ -92,13 +88,13 @@ export function generateUpdatedCem(
     userConfig.includeExternalManifests &&
     userConfig.externalManifests?.length
   ) {
-    updatedCEM = mergeExternalManifests(
-      updatedCEM as cem.Package,
+    cem = mergeExternalManifests(
+      cem as cem.Package,
       userConfig.externalManifests as cem.Package[]
     );
   }
 
-  cemEntities = getDeclarations(originalCEM, userConfig.exclude);
+  cemEntities = getDeclarations(cem, userConfig.exclude);
   const cemMap = createComponentMap(cemEntities);
   const externalMap = createComponentMap(externalComponents);
 
@@ -108,7 +104,7 @@ export function generateUpdatedCem(
 
   processInheritanceQueue(cemMap, externalMap);
 
-  return updatedCEM;
+  return cem;
 }
 
 /**
@@ -261,7 +257,7 @@ function updateApi(
   });
 
   component[api] = (component[api] as any[])?.filter(
-    (a) => !omit.includes(a.name) && a.inheritedFrom
+    (a) => !omit.includes(a.name)
   );
 
   if (api === "attributes" && component.members?.length && omit.length) {

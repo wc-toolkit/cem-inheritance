@@ -1,35 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, test } from "vitest";
-import cem from '../../demo/custom-elements.json' with { type: 'json' };
-import shoelaceCem from '../../demo/src/shoelace-cem.json' with { type: 'json' };
-import extMixinCem from '../../demo/src/ext-mixin-cem.json' with { type: 'json' };
-import { getComponentByClassName, getComponentPublicProperties } from "@wc-toolkit/cem-utilities";
+import cem from "../../demo/custom-elements.json" with { type: "json" };
+import shoelaceCem from "../../demo/src/shoelace-cem.json" with { type: "json" };
+import extMixinCem from "../../demo/src/ext-mixin-cem.json" with { type: "json" };
+import {
+  getComponentByClassName,
+  getComponentPublicProperties,
+} from "@wc-toolkit/cem-utilities";
 import { generateUpdatedCem } from "../../src/inheritance";
 
-
-describe('cem-inheritance', () => {
-  const updatedCem = generateUpdatedCem(cem, {
-    externalManifests: [
-      shoelaceCem,
-      extMixinCem,
-    ]
+describe("cem-inheritance", () => {
+  const updatedCem = generateUpdatedCem(structuredClone(cem), {
+    externalManifests: [shoelaceCem, extMixinCem],
   });
 
-  const extendedCem = generateUpdatedCem(cem, {
+  const extendedCem = generateUpdatedCem(structuredClone(cem), {
     includeExternalManifests: true,
-    externalManifests: [
-      shoelaceCem,
-      extMixinCem,
-    ]
+    externalManifests: [shoelaceCem, extMixinCem],
   });
 
-  test('should inherit APIs from parent', () => {
+  test("should inherit APIs from parent", () => {
     // Arrange
-    const component = getComponentByClassName(updatedCem, 'MyExtComponent');
+    const component = getComponentByClassName(updatedCem, "MyExtComponent");
     const properties = getComponentPublicProperties(component!);
-      
+
     // Act
-    
+
     // Assert
     expect(properties.length).toEqual(4);
     expect(component?.cssParts?.length).toEqual(2);
@@ -38,28 +34,34 @@ describe('cem-inheritance', () => {
     expect(component?.slots?.length).toEqual(1);
   });
 
-  test('should omit APIs based on CEM config', () => {
+  test("should omit APIs based on CEM config", () => {
     // Arrange
-    const component = getComponentByClassName(updatedCem, 'MyConfigOmitComponent');
+    const component = getComponentByClassName(
+      updatedCem,
+      "MyConfigOmitComponent"
+    );
     const properties = getComponentPublicProperties(component!);
-      
+
     // Act
-    
+
     // Assert
     expect(properties.length).toEqual(4);
-    expect(component?.cssParts?.length).toEqual(2);
-    expect(component?.cssProperties?.length).toEqual(2);
-    expect(component?.events?.length).toEqual(1);
+    expect(component?.cssParts?.length).toEqual(1);
+    expect(component?.cssProperties?.length).toEqual(1);
+    expect(component?.events?.length).toEqual(0);
     expect(component?.slots?.length).toEqual(1);
   });
 
-  test('should omit APIs based on JSDoc tags', () => {
+  test("should omit APIs based on JSDoc tags", () => {
     // Arrange
-    const component = getComponentByClassName(updatedCem, 'MyJsDocOmitComponent');
+    const component = getComponentByClassName(
+      updatedCem,
+      "MyJsDocOmitComponent"
+    );
     const properties = getComponentPublicProperties(component!);
-      
+
     // Act
-    
+
     // Assert
     expect(properties.length).toEqual(3);
     expect(component?.cssParts?.length).toEqual(1);
@@ -68,13 +70,16 @@ describe('cem-inheritance', () => {
     expect(component?.slots?.length).toEqual(1);
   });
 
-  test('should omit APIs based on parent omissions', () => {
+  test("should omit APIs based on parent omissions", () => {
     // Arrange
-    const component = getComponentByClassName(updatedCem, 'MyExtJsDocOmitComponent');
+    const component = getComponentByClassName(
+      updatedCem,
+      "MyExtJsDocOmitComponent"
+    );
     const properties = getComponentPublicProperties(component!);
-      
+
     // Act
-    
+
     // Assert
     expect(properties.length).toEqual(3);
     expect(component?.cssParts?.length).toEqual(1);
@@ -83,26 +88,29 @@ describe('cem-inheritance', () => {
     expect(component?.slots?.length).toEqual(1);
   });
 
-  test('should include APIs from parent and mixin', () => {
+  test("should include APIs from parent and mixin", () => {
     // Arrange
-    const component = getComponentByClassName(updatedCem, 'MyMixinComponent');
+    const component = getComponentByClassName(updatedCem, "MyMixinComponent");
     const properties = getComponentPublicProperties(component!);
-      
+
     // Act
-    
+
     // Assert
     expect(properties.length).toEqual(9);
   });
 
-  test('should include APIs from parent and mixin', () => {
+  test("should include APIs from parent and mixin", () => {
     // Arrange
-    const component = getComponentByClassName(updatedCem, 'MyExternalMixinComponent');
+    const component = getComponentByClassName(
+      updatedCem,
+      "MyExternalMixinComponent"
+    );
     const properties = getComponentPublicProperties(component!);
-      
+
     // Act
-    
+
     // Assert
-    expect(properties.length).toEqual(9);
+    expect(properties.length).toEqual(10);
   });
 
   test('should include external manifest declarations when `includeExternalManifests` is "true"', () => {
@@ -120,41 +128,40 @@ describe('cem-inheritance', () => {
     // Arrange
     const cemWithoutExternal = generateUpdatedCem(cem, {
       includeExternalManifests: false,
-      externalManifests: [
-        shoelaceCem,
-        extMixinCem,
-      ]
+      externalManifests: [shoelaceCem, extMixinCem],
     });
-    
+
     const originalModuleCount = (cem as any).modules?.length || 0;
     const updatedModuleCount = (cemWithoutExternal as any).modules?.length || 0;
-    
+
     // Act & Assert
     expect(updatedModuleCount).toEqual(originalModuleCount);
-    
+
     // Check that no external module was added
-    const externalModule = (cemWithoutExternal as any).modules?.find((module: any) => module.path === '_external');
+    const externalModule = (cemWithoutExternal as any).modules?.find(
+      (module: any) => module.path === "_external"
+    );
     expect(externalModule).toBeUndefined();
   });
 
-  test('should handle class name aliases', () => {
+  test("should handle class name aliases", () => {
     // Arrange
     const updatedCemWithAlias = generateUpdatedCem(cem, {
-      externalManifests: [
-        shoelaceCem,
-        extMixinCem,
-      ],
+      externalManifests: [shoelaceCem, extMixinCem],
       aliasMap: {
-        'ShoelaceElement': 'ShoelaceBase',
-        'ExtMixin': 'RenamedExtMixin'
-      }
+        ShoelaceElement: "ShoelaceBase",
+        ExtMixin: "RenamedExtMixin",
+      },
     });
 
-    const component = getComponentByClassName(updatedCemWithAlias, 'MyExtComponent');
+    const component = getComponentByClassName(
+      updatedCemWithAlias,
+      "MyExtComponent"
+    );
     const properties = getComponentPublicProperties(component!);
-      
+
     // Act
-    
+
     // Assert
     expect(properties.length).toEqual(4);
     expect(component?.cssParts?.length).toEqual(2);
@@ -163,46 +170,63 @@ describe('cem-inheritance', () => {
     expect(component?.slots?.length).toEqual(1);
   });
 
-  test('resolveParent should prefer externalMap when cemMap entry === component', async () => {
+  test("resolveParent should prefer externalMap when cemMap entry === component", async () => {
     // Arrange: create a fake component and duplicate parent entries
-    const component = { name: 'DuplicateParent' } as any; // same object identity simulated by reference
+    const component = { name: "DuplicateParent" } as any; // same object identity simulated by reference
 
     // cemMap contains the same object reference as the component
     const cemMap = new Map<string, any>();
-    cemMap.set('DuplicateParent', component);
+    cemMap.set("DuplicateParent", component);
 
     // externalMap contains a different object representing the real parent
-    const externalParent = { name: 'DuplicateParent', members: [{ name: 'x' }] } as any;
+    const externalParent = {
+      name: "DuplicateParent",
+      members: [{ name: "x" }],
+    } as any;
     const externalMap = new Map<string, any>();
-    externalMap.set('DuplicateParent', externalParent);
+    externalMap.set("DuplicateParent", externalParent);
 
-  // Act: dynamically import the helper from the module under test
-  const mod = await import('../../src/inheritance');
-  const resolved = mod.resolveParent('DuplicateParent', component, cemMap, externalMap);
+    // Act: dynamically import the helper from the module under test
+    const mod = await import("../../src/inheritance");
+    const resolved = mod.resolveParent(
+      "DuplicateParent",
+      component,
+      cemMap,
+      externalMap
+    );
 
     // Assert: should return the external parent, not the cemMap component
     expect(resolved).toBe(externalParent);
   });
 
-  test('resolveParent should honor aliasMap when resolving parent names', async () => {
+  test("resolveParent should honor aliasMap when resolving parent names", async () => {
     // Arrange: prepare small maps and an aliasMap to pass directly
-    const aliasMap = { AliasedParent: 'RealParent' } as Record<string, string>;
+    const aliasMap = { AliasedParent: "RealParent" } as Record<string, string>;
 
-    const component = { name: 'Child' } as any;
+    const component = { name: "Child" } as any;
 
     // cemMap maps RealParent to a component (not the same as component)
-    const realParent = { name: 'RealParent', members: [] } as any;
+    const realParent = { name: "RealParent", members: [] } as any;
     const cemMap = new Map<string, any>();
-    cemMap.set('RealParent', realParent);
+    cemMap.set("RealParent", realParent);
 
     // externalMap contains another RealParent entry
-    const externalParent = { name: 'RealParent', members: [{ name: 'y' }] } as any;
+    const externalParent = {
+      name: "RealParent",
+      members: [{ name: "y" }],
+    } as any;
     const externalMap = new Map<string, any>();
-    externalMap.set('RealParent', externalParent);
+    externalMap.set("RealParent", externalParent);
 
     // Act: use resolveParent with the aliased name and pass aliasMap directly
-    const mod = await import('../../src/inheritance');
-    const resolved = mod.resolveParent('AliasedParent', component, cemMap, externalMap, aliasMap);
+    const mod = await import("../../src/inheritance");
+    const resolved = mod.resolveParent(
+      "AliasedParent",
+      component,
+      cemMap,
+      externalMap,
+      aliasMap
+    );
 
     // Assert: resolved should be the cemMap entry (since cemMap entry != component),
     // and alias should be applied to map to 'RealParent'

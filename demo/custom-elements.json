@@ -90,7 +90,8 @@
             "name": "HTMLElement"
           },
           "tagName": "my-component",
-          "customElement": true
+          "customElement": true,
+          "modulePath": "demo/src/my-components.ts"
         },
         {
           "kind": "class",
@@ -229,7 +230,9 @@
                 "module": "demo/src/my-components.ts"
               }
             }
-          ]
+          ],
+          "modulePath": "demo/src/my-components.ts",
+          "attributes": []
         },
         {
           "kind": "class",
@@ -253,14 +256,6 @@
           ],
           "cssParts": [
             {
-              "description": "The title of the component",
-              "name": "title",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
               "description": "The content of the component",
               "name": "content",
               "inheritedFrom": {
@@ -270,14 +265,6 @@
             }
           ],
           "cssProperties": [
-            {
-              "description": "The color of the component",
-              "name": "--my-component-color",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
             {
               "description": "The background color of the component",
               "name": "--my-component-background-color",
@@ -341,25 +328,8 @@
               }
             }
           ],
-          "events": [
-            {
-              "description": "My event",
-              "name": "my-event",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            }
-          ],
+          "events": [],
           "cssStates": [
-            {
-              "description": "The active state of the component",
-              "name": "active",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
             {
               "description": "The disabled state of the component",
               "name": "disabled",
@@ -367,6 +337,28 @@
                 "name": "MyComponent",
                 "module": "demo/src/my-components.ts"
               }
+            }
+          ],
+          "modulePath": "demo/src/my-components.ts",
+          "omitCssProps": [
+            {
+              "name": "--my-component-color"
+            }
+          ],
+          "omitCssParts": [
+            {
+              "name": "title"
+            }
+          ],
+          "omitCssStates": [
+            {
+              "name": "active"
+            }
+          ],
+          "attributes": [],
+          "omitEvents": [
+            {
+              "name": "my-event"
             }
           ]
         },
@@ -382,26 +374,22 @@
           "customElement": true,
           "omit": [
             {
-              "name": "age",
-              "description": ""
+              "name": "age"
             }
           ],
           "omitCssParts": [
             {
-              "name": "content",
-              "description": ""
+              "name": "content"
             }
           ],
           "omitCssProps": [
             {
-              "name": "--my-component-background-color",
-              "description": ""
+              "name": "--my-component-background-color"
             }
           ],
           "omitEvents": [
             {
-              "name": "my-event",
-              "description": ""
+              "name": "my-event"
             }
           ],
           "slots": [
@@ -422,28 +410,12 @@
                 "name": "MyComponent",
                 "module": "demo/src/my-components.ts"
               }
-            },
-            {
-              "description": "The content of the component",
-              "name": "content",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
             }
           ],
           "cssProperties": [
             {
               "description": "The color of the component",
               "name": "--my-component-color",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
-              "description": "The background color of the component",
-              "name": "--my-component-background-color",
               "inheritedFrom": {
                 "name": "MyComponent",
                 "module": "demo/src/my-components.ts"
@@ -456,17 +428,6 @@
               "name": "name",
               "type": {
                 "text": "string"
-              },
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "age",
-              "type": {
-                "text": "number"
               },
               "inheritedFrom": {
                 "name": "MyComponent",
@@ -504,16 +465,7 @@
               }
             }
           ],
-          "events": [
-            {
-              "description": "My event",
-              "name": "my-event",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            }
-          ],
+          "events": [],
           "cssStates": [
             {
               "description": "The active state of the component",
@@ -531,7 +483,9 @@
                 "module": "demo/src/my-components.ts"
               }
             }
-          ]
+          ],
+          "modulePath": "demo/src/my-components.ts",
+          "attributes": []
         },
         {
           "kind": "class",
@@ -561,28 +515,12 @@
                 "name": "MyComponent",
                 "module": "demo/src/my-components.ts"
               }
-            },
-            {
-              "description": "The content of the component",
-              "name": "content",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
             }
           ],
           "cssProperties": [
             {
               "description": "The color of the component",
               "name": "--my-component-color",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
-              "description": "The background color of the component",
-              "name": "--my-component-background-color",
               "inheritedFrom": {
                 "name": "MyComponent",
                 "module": "demo/src/my-components.ts"
@@ -595,17 +533,6 @@
               "name": "name",
               "type": {
                 "text": "string"
-              },
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "age",
-              "type": {
-                "text": "number"
               },
               "inheritedFrom": {
                 "name": "MyComponent",
@@ -643,16 +570,7 @@
               }
             }
           ],
-          "events": [
-            {
-              "description": "My event",
-              "name": "my-event",
-              "inheritedFrom": {
-                "name": "MyComponent",
-                "module": "demo/src/my-components.ts"
-              }
-            }
-          ],
+          "events": [],
           "cssStates": [
             {
               "description": "The active state of the component",
@@ -669,6 +587,28 @@
                 "name": "MyComponent",
                 "module": "demo/src/my-components.ts"
               }
+            }
+          ],
+          "modulePath": "demo/src/my-components.ts",
+          "omitCssProps": [
+            {
+              "name": "--my-component-background-color"
+            }
+          ],
+          "omitCssParts": [
+            {
+              "name": "content"
+            }
+          ],
+          "omit": [
+            {
+              "name": "age"
+            }
+          ],
+          "attributes": [],
+          "omitEvents": [
+            {
+              "name": "my-event"
             }
           ]
         },
@@ -718,6 +658,416 @@
                 "name": "mixinElementInternals",
                 "module": "demo/src/my-mixin.ts"
               }
+            },
+            {
+              "kind": "method",
+              "name": "restartAutoHide",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "pauseAutoHide",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resumeAutoHide",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleCountdownChange",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleCloseClick",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleOpenChange",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleDurationChange",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "description": "Shows the alert.",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hide",
+              "description": "Hides the alert",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "toast",
+              "description": "Displays the alert as a toast notification. This will move the alert out of its position in the DOM and, when\ndismissed, it will be removed from the DOM completely. By storing a reference to the alert, you can reuse it by\ncalling this method again. The returned promise will resolve after the alert is hidden.",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dependencies",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'sl-icon-button': SlIconButton }",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoHideTimeout",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "remainingTimeInterval",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "countdownAnimation",
+              "type": {
+                "text": "Animation | undefined"
+              },
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hasSlotController",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new HasSlotController(this, 'icon', 'suffix')",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "localize",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new LocalizeController(this)",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "currentToastStack",
+              "type": {
+                "text": "HTMLDivElement"
+              },
+              "privacy": "private",
+              "static": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "toastStack",
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "base",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "countdownElement",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether or not the alert is open. You can toggle this attribute to show and hide the alert, or you can\nuse the `show()` and `hide()` methods and this attribute will reflect the alert's open state.",
+              "attribute": "open",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "closable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Enables a close button that allows the user to dismiss the alert.",
+              "attribute": "closable",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'primary' | 'success' | 'neutral' | 'warning' | 'danger'"
+              },
+              "default": "'primary'",
+              "description": "The alert's theme variant.",
+              "attribute": "variant",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "default": "Infinity",
+              "description": "The length of time, in milliseconds, the alert will show before closing itself. If the user interacts with\nthe alert before it closes (e.g. moves the mouse over it), the timer will restart. Defaults to `Infinity`, meaning\nthe alert will not close on its own.",
+              "attribute": "duration",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "countdown",
+              "type": {
+                "text": "'rtl' | 'ltr' | undefined"
+              },
+              "description": "Enables a countdown that indicates the remaining time the alert will be displayed.\nTypically used to indicate the remaining time before a whole app refresh.",
+              "attribute": "countdown",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "remainingTime",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ],
+          "modulePath": "demo/src/my-components.ts",
+          "cssProperties": [],
+          "cssParts": [
+            {
+              "description": "The component's base wrapper.",
+              "name": "base",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The container that wraps the optional icon.",
+              "name": "icon",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The container that wraps the alert's main content.",
+              "name": "message",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The close button, an `<sl-icon-button>`.",
+              "name": "close-button",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The close button's exported `base` part.",
+              "name": "close-button__base",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ],
+          "cssStates": [],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether or not the alert is open. You can toggle this attribute to show and hide the alert, or you can\nuse the `show()` and `hide()` methods and this attribute will reflect the alert's open state.",
+              "fieldName": "open",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "name": "closable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Enables a close button that allows the user to dismiss the alert.",
+              "fieldName": "closable",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'primary' | 'success' | 'neutral' | 'warning' | 'danger'"
+              },
+              "default": "'primary'",
+              "description": "The alert's theme variant.",
+              "fieldName": "variant",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "name": "duration",
+              "default": "Infinity",
+              "description": "The length of time, in milliseconds, the alert will show before closing itself. If the user interacts with\nthe alert before it closes (e.g. moves the mouse over it), the timer will restart. Defaults to `Infinity`, meaning\nthe alert will not close on its own.",
+              "fieldName": "duration",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "name": "countdown",
+              "type": {
+                "text": "'rtl' | 'ltr' | undefined"
+              },
+              "description": "Enables a countdown that indicates the remaining time the alert will be displayed.\nTypically used to indicate the remaining time before a whole app refresh.",
+              "fieldName": "countdown",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "Emitted when the alert opens.",
+              "name": "sl-show",
+              "reactName": "onSlShow",
+              "eventName": "SlShowEvent",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "Emitted after the alert opens and all animations are complete.",
+              "name": "sl-after-show",
+              "reactName": "onSlAfterShow",
+              "eventName": "SlAfterShowEvent",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "Emitted when the alert closes.",
+              "name": "sl-hide",
+              "reactName": "onSlHide",
+              "eventName": "SlHideEvent",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "Emitted after the alert closes and all animations are complete.",
+              "name": "sl-after-hide",
+              "reactName": "onSlAfterHide",
+              "eventName": "SlAfterHideEvent",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "description": "The alert's main content.",
+              "name": "",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "An icon to show in the alert. Works best with `<sl-icon>`.",
+              "name": "icon",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
             }
           ]
         },
@@ -732,6 +1082,271 @@
               "type": {
                 "text": "string"
               }
+            },
+            {
+              "kind": "method",
+              "name": "restartAutoHide",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "pauseAutoHide",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resumeAutoHide",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleCountdownChange",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleCloseClick",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleOpenChange",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "handleDurationChange",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "description": "Shows the alert.",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hide",
+              "description": "Hides the alert",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "toast",
+              "description": "Displays the alert as a toast notification. This will move the alert out of its position in the DOM and, when\ndismissed, it will be removed from the DOM completely. By storing a reference to the alert, you can reuse it by\ncalling this method again. The returned promise will resolve after the alert is hidden.",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dependencies",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'sl-icon-button': SlIconButton }",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoHideTimeout",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "remainingTimeInterval",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "countdownAnimation",
+              "type": {
+                "text": "Animation | undefined"
+              },
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hasSlotController",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new HasSlotController(this, 'icon', 'suffix')",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "localize",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new LocalizeController(this)",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "currentToastStack",
+              "type": {
+                "text": "HTMLDivElement"
+              },
+              "privacy": "private",
+              "static": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "toastStack",
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "base",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "countdownElement",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether or not the alert is open. You can toggle this attribute to show and hide the alert, or you can\nuse the `show()` and `hide()` methods and this attribute will reflect the alert's open state.",
+              "attribute": "open",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "closable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Enables a close button that allows the user to dismiss the alert.",
+              "attribute": "closable",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'primary' | 'success' | 'neutral' | 'warning' | 'danger'"
+              },
+              "default": "'primary'",
+              "description": "The alert's theme variant.",
+              "attribute": "variant",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "default": "Infinity",
+              "description": "The length of time, in milliseconds, the alert will show before closing itself. If the user interacts with\nthe alert before it closes (e.g. moves the mouse over it), the timer will restart. Defaults to `Infinity`, meaning\nthe alert will not close on its own.",
+              "attribute": "duration",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "countdown",
+              "type": {
+                "text": "'rtl' | 'ltr' | undefined"
+              },
+              "description": "Enables a countdown that indicates the remaining time the alert will be displayed.\nTypically used to indicate the remaining time before a whole app refresh.",
+              "attribute": "countdown",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "remainingTime",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "mixinProp",
+              "inheritedFrom": {
+                "name": "extMixin"
+              }
             }
           ],
           "mixins": [
@@ -745,7 +1360,159 @@
             "module": "demo/src/my-components.ts"
           },
           "tagName": "my-mixin-component",
-          "customElement": true
+          "customElement": true,
+          "modulePath": "demo/src/my-components.ts",
+          "cssProperties": [],
+          "cssParts": [
+            {
+              "description": "The component's base wrapper.",
+              "name": "base",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The container that wraps the optional icon.",
+              "name": "icon",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The container that wraps the alert's main content.",
+              "name": "message",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The close button, an `<sl-icon-button>`.",
+              "name": "close-button",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "The close button's exported `base` part.",
+              "name": "close-button__base",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ],
+          "cssStates": [],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether or not the alert is open. You can toggle this attribute to show and hide the alert, or you can\nuse the `show()` and `hide()` methods and this attribute will reflect the alert's open state.",
+              "fieldName": "open",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "name": "closable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Enables a close button that allows the user to dismiss the alert.",
+              "fieldName": "closable",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'primary' | 'success' | 'neutral' | 'warning' | 'danger'"
+              },
+              "default": "'primary'",
+              "description": "The alert's theme variant.",
+              "fieldName": "variant",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "name": "duration",
+              "default": "Infinity",
+              "description": "The length of time, in milliseconds, the alert will show before closing itself. If the user interacts with\nthe alert before it closes (e.g. moves the mouse over it), the timer will restart. Defaults to `Infinity`, meaning\nthe alert will not close on its own.",
+              "fieldName": "duration",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "name": "countdown",
+              "type": {
+                "text": "'rtl' | 'ltr' | undefined"
+              },
+              "description": "Enables a countdown that indicates the remaining time the alert will be displayed.\nTypically used to indicate the remaining time before a whole app refresh.",
+              "fieldName": "countdown",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "Emitted when the alert opens.",
+              "name": "sl-show",
+              "reactName": "onSlShow",
+              "eventName": "SlShowEvent",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "Emitted after the alert opens and all animations are complete.",
+              "name": "sl-after-show",
+              "reactName": "onSlAfterShow",
+              "eventName": "SlAfterShowEvent",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "Emitted when the alert closes.",
+              "name": "sl-hide",
+              "reactName": "onSlHide",
+              "eventName": "SlHideEvent",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "Emitted after the alert closes and all animations are complete.",
+              "name": "sl-after-hide",
+              "reactName": "onSlAfterHide",
+              "eventName": "SlAfterHideEvent",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "description": "The alert's main content.",
+              "name": "",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            },
+            {
+              "description": "An icon to show in the alert. Works best with `<sl-icon>`.",
+              "name": "icon",
+              "inheritedFrom": {
+                "name": "SlAlert"
+              }
+            }
+          ]
         }
       ],
       "exports": [
