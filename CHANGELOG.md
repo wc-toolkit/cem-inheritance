@@ -1,5 +1,12 @@
 # @wc-toolkit/cem-inheritance
 
+## 1.2.2
+
+### Patch Changes
+
+- 3b17ada: Fixed issue where plugin isn't updating final output.
+- 3b17ada: Fixed issue where items are not being correctly omitted.
+
 ## 1.2.1
 
 ### Patch Changes
