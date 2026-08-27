@@ -90,8 +90,7 @@
             "name": "HTMLElement"
           },
           "tagName": "my-component",
-          "customElement": true,
-          "modulePath": "demo/src/my-components.ts"
+          "customElement": true
         },
         {
           "kind": "class",
@@ -231,7 +230,6 @@
               }
             }
           ],
-          "modulePath": "demo/src/my-components.ts",
           "attributes": []
         },
         {
@@ -339,7 +337,6 @@
               }
             }
           ],
-          "modulePath": "demo/src/my-components.ts",
           "omitCssProps": [
             {
               "name": "--my-component-color"
@@ -484,7 +481,6 @@
               }
             }
           ],
-          "modulePath": "demo/src/my-components.ts",
           "attributes": []
         },
         {
@@ -589,7 +585,6 @@
               }
             }
           ],
-          "modulePath": "demo/src/my-components.ts",
           "omitCssProps": [
             {
               "name": "--my-component-background-color"
@@ -918,7 +913,6 @@
               }
             }
           ],
-          "modulePath": "demo/src/my-components.ts",
           "cssProperties": [],
           "cssParts": [
             {
@@ -1361,7 +1355,6 @@
           },
           "tagName": "my-mixin-component",
           "customElement": true,
-          "modulePath": "demo/src/my-components.ts",
           "cssProperties": [],
           "cssParts": [
             {

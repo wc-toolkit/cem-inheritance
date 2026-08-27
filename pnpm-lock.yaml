@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@wc-toolkit/cem-utilities':
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.6.0
+        version: 1.6.0
       '@wc-toolkit/jsdoc-tags':
         specifier: ^1.1.0
         version: 1.1.0
@@ -564,8 +564,8 @@ packages:
   '@vitest/utils@3.0.5':
     resolution: {integrity: sha512-N9AX0NUoUtVwKwy21JtwzaqR5L5R5A99GAbrHfCCXK1lp593i/3AZAXhSP43wRQuxYsflrdzEfXZFo1reR1Nkg==}
 
-  '@wc-toolkit/cem-utilities@1.2.0':
-    resolution: {integrity: sha512-RO6r8x4V8xGENPyAsWin00JzNxZXg+tTBSM38t/H3eJ72wPPIOMyNEA76lW75IseDDRFfgAg4R5mu9Ny0vCmSg==}
+  '@wc-toolkit/cem-utilities@1.6.0':
+    resolution: {integrity: sha512-zT1AWP34TPM33Li7axrEWH2b3tNomivJt+RovDlT7egWRaN02h3Jbx392s17NjAElc19ZDviVycwi/miQ9Hq6Q==}
 
   '@wc-toolkit/jsdoc-tags@1.1.0':
     resolution: {integrity: sha512-7MHpQ3FtRNJBJONMChkfIWxOWy1rvDtwOJJ4ubeGJBUEj2hp8Xy/9G8GqqNvPGzp38haAfdMcmwx6rySu4AAqg==}
@@ -2143,7 +2143,7 @@ snapshots:
       loupe: 3.1.3
       tinyrainbow: 2.0.0
 
-  '@wc-toolkit/cem-utilities@1.2.0': {}
+  '@wc-toolkit/cem-utilities@1.6.0': {}
 
   '@wc-toolkit/jsdoc-tags@1.1.0': {}
 
