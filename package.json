@@ -63,7 +63,7 @@
     "vitest": "^3.0.4"
   },
   "dependencies": {
-    "@wc-toolkit/cem-utilities": "^1.2.0",
+    "@wc-toolkit/cem-utilities": "^1.6.0",
     "@wc-toolkit/jsdoc-tags": "^1.1.0"
   },
   "keywords": [

@@ -4,7 +4,6 @@ import type { CemInheritanceOptions, OmittedProperties } from "./types";
 import type * as cem from "custom-elements-manifest";
 import {
   deepMerge,
-  getAllComponents,
   type Mixin,
   type Component,
   getAllMixins,
@@ -388,9 +387,14 @@ function getDeclarations(
   customElementsManifest: unknown,
   exclude?: string[]
 ): Component[] {
-  return getAllComponents(customElementsManifest)?.filter(
-    (c) => !exclude?.includes(c.name) || []
-  );
+  // Inheritance is applied by mutating these declarations, so they have to be
+  // the manifest's own objects. `getAllComponents` returns copies as of
+  // `@wc-toolkit/cem-utilities` 1.6.0, which silently discards every write.
+  const manifest = customElementsManifest as cem.Package | undefined;
+  return (manifest?.modules ?? [])
+    .flatMap((mod) => (mod.declarations ?? []) as unknown as Component[])
+    .filter((c) => c.customElement && c.tagName)
+    .filter((c) => !exclude?.includes(c.name) || []);
 }
 
 /**

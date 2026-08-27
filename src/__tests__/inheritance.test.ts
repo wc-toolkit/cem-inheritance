@@ -8,6 +8,7 @@ import {
   getComponentPublicProperties,
 } from "@wc-toolkit/cem-utilities";
 import { generateUpdatedCem } from "../../src/inheritance";
+import { cemInheritancePlugin } from "../../src/cem-plugin";
 
 describe("cem-inheritance", () => {
   const updatedCem = generateUpdatedCem(structuredClone(cem), {
@@ -277,4 +278,59 @@ describe("cem-inheritance", () => {
     expect(component?.members?.find((m) => m.name === "baseProp")).toBeTruthy();
     expect(component?.members?.find((m) => m.name === "ownProp")).toBeTruthy();
   });
+  test("should apply inheritance to the manifest the plugin was given", () => {
+    // Arrange
+    // `packageLinkPhase` discards the return value of `updateCemInheritance`,
+    // so mutating the analyzer's own manifest is the plugin's only output.
+    const externalCem = {
+      modules: [
+        {
+          path: "external-base.js",
+          declarations: [
+            {
+              kind: "class",
+              name: "ExternalBase",
+              tagName: "external-base",
+              customElement: true,
+              attributes: [{ name: "variant", fieldName: "variant" }],
+              members: [{ kind: "field", name: "variant" }],
+              events: [{ name: "base-change" }],
+              slots: [{ name: "" }],
+            },
+          ],
+        },
+      ],
+    };
+    // The wrapper declares no API of its own, so every entry asserted below can
+    // only have come from the parent.
+    const manifest: any = {
+      modules: [
+        {
+          path: "my-wrapper.js",
+          declarations: [
+            {
+              kind: "class",
+              name: "MyWrapper",
+              tagName: "my-wrapper",
+              customElement: true,
+              superclass: { name: "ExternalBase", package: "external-base" },
+            },
+          ],
+        },
+      ],
+    };
+
+    // Act
+    cemInheritancePlugin({
+      externalManifests: [externalCem as any],
+    }).packageLinkPhase?.({ customElementsManifest: manifest } as any);
+
+    // Assert
+    const component = manifest.modules[0].declarations[0];
+    expect(component.attributes?.map((a: any) => a.name)).toEqual(["variant"]);
+    expect(component.members?.map((m: any) => m.name)).toEqual(["variant"]);
+    expect(component.events?.map((e: any) => e.name)).toEqual(["base-change"]);
+    expect(component.slots?.length).toEqual(1);
+  });
 });
+
