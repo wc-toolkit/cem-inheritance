@@ -14,6 +14,17 @@
             {
               "kind": "field",
               "name": "mixinProp"
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates open state - overridden from extMixin.",
+              "attribute": "open",
+              "reflects": true
             }
           ],
           "attributes": [
