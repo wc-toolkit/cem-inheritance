@@ -14,6 +14,28 @@
             {
               "kind": "field",
               "name": "mixinProp"
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates open state - overridden from extMixin.",
+              "attribute": "open",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "mixin-prop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "",
+              "fieldName": "mixinProp"
             }
           ],
           "parameters": [
@@ -30,6 +52,98 @@
           "declaration": {
             "name": "extMixin",
             "module": "src/ext-mixin.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/ext-complete-mixin.js",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "name": "extCompleteMixin",
+          "description": "Mixin providing common component APIs",
+          "members": [
+            {
+              "kind": "field",
+              "name": "fullscreen",
+              "description": "Whether the component is currently fullscreen.",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "fullscreen",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "activate",
+              "description": "Activates the component and dispatches an activation event."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "fullscreen",
+              "description": "Whether the component is fullscreen.",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "fullscreen"
+            }
+          ],
+          "events": [
+            {
+              "name": "component-activated",
+              "description": "Fired when the component is activated.",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "name": "content",
+              "description": "Content displayed inside the component."
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--interactive-color",
+              "description": "The color used for the interactive state.",
+              "syntax": "<color>",
+              "default": "blue"
+            },
+            {
+              "name": "--interactive-padding",
+              "description": "The padding applied to the interactive content.",
+              "syntax": "<length>",
+              "default": "8px"
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "content",
+              "description": "The main content container."
+            }
+          ],
+          "cssStates": [
+            {
+              "name": "fullscreen",
+              "description": "Indicates that the component is currently fullscreen."
+            }
+          ]
+        }
+      ],
+
+      "exports": [
+        {
+          "kind": "js",
+          "name": "extCompleteMixin",
+          "declaration": {
+            "name": "extCompleteMixin",
+            "module": "src/ext-complete-mixin.js"
           }
         }
       ]

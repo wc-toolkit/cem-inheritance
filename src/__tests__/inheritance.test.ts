@@ -97,6 +97,12 @@ describe("cem-inheritance", () => {
 
     // Assert
     expect(properties.length).toEqual(9);
+    expect(component.cssProperties.length).toEqual(0);
+    expect(component.cssParts.length).toEqual(5);
+    expect(component.cssStates.length).toEqual(0);
+    expect(component.slots.length).toEqual(2);
+    expect(component.events.length).toEqual(4);
+    expect(component.attributes.length).toEqual(5);
   });
 
   test("should include APIs from parent and mixin", () => {
@@ -110,7 +116,37 @@ describe("cem-inheritance", () => {
     // Act
 
     // Assert
-    expect(properties.length).toEqual(10);
+    const distinctProps = new Set(properties.map(p => p.name))
+    expect(distinctProps.size).toEqual(properties.length);
+
+    expect(properties.length).toEqual(9);
+    expect(component.cssProperties.length).toEqual(0);
+    expect(component.cssParts.length).toEqual(5);
+    expect(component.cssStates.length).toEqual(0);
+    expect(component.slots.length).toEqual(2);
+    expect(component.events.length).toEqual(4);
+    expect(component.attributes.length).toEqual(6);
+
+    const overriddenOpenField = properties.find(p => p.name == 'open');
+    expect(overriddenOpenField?.description).to.equal('Indicates open state - overridden from extMixin.')
+  });
+
+  test("should include complete APIs from parent and mixin", () => {
+    // Arrange
+    const component = getComponentByClassName(
+      updatedCem,
+      "EmptyComponent"
+    );
+    const properties = getComponentPublicProperties(component!);
+    // Act
+
+    // Assert
+    expect(properties.length).toEqual(8);
+    expect(component.cssProperties.length).toEqual(2);
+    expect(component.cssParts.length).toEqual(6);
+    expect(component.slots.length).toEqual(3);
+    expect(component.events.length).toEqual(5);
+    expect(component.attributes.length).toEqual(6);
   });
 
   test('should include external manifest declarations when `includeExternalManifests` is "true"', () => {
@@ -142,6 +178,29 @@ describe("cem-inheritance", () => {
       (module: any) => module.path === "_external"
     );
     expect(externalModule).toBeUndefined();
+  });
+
+  test("should include external mixin API even when `includeExternalManifests` is \"false\"", () => {
+    // Arrange
+    const cemWithoutExternal = generateUpdatedCem(cem, {
+      includeExternalManifests: false,
+      externalManifests: [shoelaceCem, extMixinCem],
+    });
+
+    const component = getComponentByClassName(
+      cemWithoutExternal,
+      "EmptyComponent"
+    );
+    const properties = getComponentPublicProperties(component!);
+    // Act
+
+    // Assert
+    expect(properties.length).toEqual(8);
+    expect(component.cssProperties.length).toEqual(2);
+    expect(component.cssParts.length).toEqual(6);
+    expect(component.slots.length).toEqual(3);
+    expect(component.events.length).toEqual(5);
+    expect(component.attributes.length).toEqual(6);
   });
 
   test("should handle class name aliases", () => {

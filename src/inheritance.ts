@@ -285,16 +285,29 @@ function updateApi(
   if (!component[api]) {
     component[api] = [];
   }
-
-  (parent[api] as any[])?.forEach((element) => {
-    let apiItem = (component[api] as any[])?.find(
-      (a) => a.name === element.name
+  const parents: Map<string, any[]> = new Map();
+  // Merge mixins API with parent API
+  component.mixins?.forEach(mixin => {
+    const extMixin = externalMixins.find(
+      (extMixin) => extMixin.name === mixin.name
     );
-    if (!apiItem) {
-      apiItem = addInheritedFromInfo(element, parent.name);
-      (component[api] as any[]).push(apiItem);
+    if (extMixin) {
+      parents.set(extMixin.name, (extMixin[api] as any[] ?? []));
     }
   });
+  parents.set(parent.name, (parent[api] as any[] ?? []));
+
+  for (const [parentName, apiElements] of parents) {
+    apiElements.forEach((element) => {
+      let apiItem = (component[api] as any[])?.find(
+        (a) => a.name === element.name
+      );
+      if (!apiItem) {
+        apiItem = addInheritedFromInfo(element, parentName);
+        (component[api] as any[]).push(apiItem);
+      }
+    });
+  }
 
   component[api] = (component[api] as any[])?.filter(
     (a) => !omit.includes(a.name)
@@ -330,14 +343,6 @@ function updateClassMembers(
     component.members = [];
   }
 
-  parentContent?.forEach((member) => {
-    let apiItem = component.members?.find((a) => a.name === member.name);
-    if (!apiItem) {
-      apiItem = addInheritedFromInfo(member, parent.name);
-      component.members!.push(apiItem!);
-    }
-  });
-
   component.mixins?.forEach((mixin) => {
     const extMixin = externalMixins.find(
       (extMixin) => extMixin.name === mixin.name
@@ -349,14 +354,20 @@ function updateClassMembers(
       (m) => m.kind === (api === "methods" ? "method" : "field")
     );
     mixinApi?.forEach((element) => {
-      let apiItem = (component[api] as any[])?.find(
-        (a) => a.name === element.name
-      );
+      let apiItem = component.members?.find((a) => a.name === element.name);
       if (!apiItem) {
         apiItem = addInheritedFromInfo(element, extMixin.name);
         component.members!.push(apiItem!);
       }
     });
+  });
+
+  parentContent?.forEach((member) => {
+    let apiItem = component.members?.find((a) => a.name === member.name);
+    if (!apiItem) {
+      apiItem = addInheritedFromInfo(member, parent.name);
+      component.members!.push(apiItem!);
+    }
   });
 
   component.members = component.members?.filter((a) => !omit.includes(a.name));
